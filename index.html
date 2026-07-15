@@ -165,6 +165,8 @@
       <button class="tab-btn" onclick="switchTab('acomac', this)">ACOMAC <span class="tab-badge">Material de Construção</span></button>
       <button class="tab-btn" onclick="switchTab('acia', this)">ACIA <span class="tab-badge">SP · MG · RJ</span></button>
       <button class="tab-btn" onclick="switchTab('acp', this)">ACP <span class="tab-badge">Nordeste</span></button>
+      <button class="tab-btn" onclick="switchTab('ciesp', this)">CIESP <span class="tab-badge">Indústria SP</span></button>
+      <button class="tab-btn" onclick="switchTab('geral', this)">Consulta Geral <span class="tab-badge">Todas</span></button>
     </div>
   </div>
 
@@ -258,6 +260,49 @@
     <div class="legend">
       <div class="legend-item"><div class="leg-dot" style="background:var(--green-bd)"></div>Empresa ativa em PE, AL, PB, BA, PI ou CE</div>
       <div class="legend-item"><div class="leg-dot" style="background:var(--red-bd)"></div>Fora da área de atuação</div>
+    </div>
+  </div>
+
+  <!-- CIESP -->
+  <div class="tab-panel" id="panel-ciesp">
+    <div class="hero">
+      <div class="hero-eyebrow"><span class="eyebrow-line"></span>CIESP · Verificação por CNPJ<span class="eyebrow-line"></span></div>
+      <h1>A empresa tem perfil para a <em>CIESP?</em></h1>
+      <p>Verifica se a empresa é industrial (CNAEs divisões 10–33) e está sediada em São Paulo.</p>
+    </div>
+    <div class="consulta-area">
+      <div class="input-wrapper">
+        <label class="input-label" for="cnpjCiesp">CNPJ da empresa</label>
+        <div class="input-row">
+          <input type="text" id="cnpjCiesp" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarCiesp()" />
+          <button class="btn-consultar" id="btnCiesp" onclick="consultarCiesp()">Consultar</button>
+        </div>
+      </div>
+      <div id="resultadoCiesp" class="resultado"></div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="leg-dot" style="background:var(--green-bd)"></div>Indústria ativa em SP</div>
+      <div class="legend-item"><div class="leg-dot" style="background:var(--gold-dk)"></div>CNAE industrial identificado</div>
+      <div class="legend-item"><div class="leg-dot" style="background:var(--red-bd)"></div>Fora do critério</div>
+    </div>
+  </div>
+
+  <!-- CONSULTA GERAL -->
+  <div class="tab-panel" id="panel-geral">
+    <div class="hero">
+      <div class="hero-eyebrow"><span class="eyebrow-line"></span>Consulta Geral · Todas as Associações<span class="eyebrow-line"></span></div>
+      <h1>Em quais associações a empresa <em>tem perfil?</em></h1>
+      <p>Consulta única que verifica todas as associações simultaneamente e retorna o resultado de cada uma.</p>
+    </div>
+    <div class="consulta-area">
+      <div class="input-wrapper">
+        <label class="input-label" for="cnpjGeral">CNPJ da empresa</label>
+        <div class="input-row">
+          <input type="text" id="cnpjGeral" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarGeral()" />
+          <button class="btn-consultar" id="btnGeral" onclick="consultarGeral()">Consultar Todas</button>
+        </div>
+      </div>
+      <div id="resultadoGeral" class="resultado"></div>
     </div>
   </div>
 
@@ -620,6 +665,183 @@ async function consultarUF(assoc) {
         </div>
       </div>`;
   } catch(e) { showError(cfg.resultId, e.message||"Erro ao consultar."); }
+  finally { btn.disabled = false; }
+}
+
+// ══════════════════════════════════════════════════════
+// CIESP — indústria (divisões 10-33) em SP
+// ══════════════════════════════════════════════════════
+function isIndustria(cod) {
+  const n = parseInt(String(cod).replace(/\D/g,"").slice(0,4));
+  return n >= 1011 && n <= 3329; // divisões 10 a 33
+}
+
+function labelIndustria(cod) {
+  const n = parseInt(String(cod).replace(/\D/g,"").slice(0,2));
+  const map = {
+    10:"Fabricação de alimentos",11:"Fabricação de bebidas",12:"Fabricação de produtos do fumo",
+    13:"Fabricação de produtos têxteis",14:"Confecção de vestuário",15:"Fabricação de calçados e artigos de couro",
+    16:"Fabricação de produtos de madeira",17:"Fabricação de celulose e papel",18:"Impressão e reprodução de gravações",
+    19:"Fabricação de coque e derivados de petróleo",20:"Fabricação de produtos químicos",
+    21:"Fabricação de produtos farmacêuticos",22:"Fabricação de produtos de borracha e plástico",
+    23:"Fabricação de produtos de minerais não-metálicos",24:"Metalurgia",
+    25:"Fabricação de produtos de metal",26:"Fabricação de equipamentos de informática e eletrônicos",
+    27:"Fabricação de máquinas e equipamentos elétricos",28:"Fabricação de máquinas e equipamentos",
+    29:"Fabricação de veículos automotores",30:"Fabricação de outros equipamentos de transporte",
+    31:"Fabricação de móveis",32:"Fabricação de produtos diversos",33:"Manutenção e instalação de máquinas",
+  };
+  return map[n] || "Atividade industrial";
+}
+
+async function consultarCiesp() {
+  const raw = document.getElementById("cnpjCiesp").value.replace(/\D/g,"");
+  if (raw.length !== 14) { showError("resultadoCiesp","CNPJ inválido."); return; }
+  const btn = document.getElementById("btnCiesp"); btn.disabled = true;
+  showSkeleton("resultadoCiesp");
+  try {
+    const res = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${raw}`);
+    if (!res.ok) throw new Error("CNPJ não encontrado na Receita Federal.");
+    const d = await res.json();
+
+    const cnaes = [];
+    if (d.cnae_fiscal) cnaes.push({ cod: String(d.cnae_fiscal), desc: d.cnae_fiscal_descricao||"", principal: true });
+    (d.cnaes_secundarios||[]).forEach(c => cnaes.push({ cod: String(c.codigo), desc: c.descricao||"", principal: false }));
+
+    const ativa      = isAtiva(d.descricao_situacao_cadastral);
+    const uf         = (d.uf||"").toUpperCase();
+    const emSP       = uf === "SP";
+    const indMatch   = cnaes.filter(c => isIndustria(c.cod));
+    const temIndust  = indMatch.length > 0;
+    const perfil     = ativa && emSP && temIndust;
+    const tipo       = perfil ? "yes" : "no";
+
+    const criterios = [
+      { ok: ativa,     label:"Situação cadastral",    text: ativa ? "Empresa ativa na Receita Federal" : "Empresa com situação irregular — não elegível" },
+      { ok: emSP,      label:"Estado — São Paulo",    text: emSP ? `${d.municipio||""}/SP dentro da área de atuação da CIESP` : `${d.municipio||""}${uf?"/"+uf:""} — CIESP atua exclusivamente em São Paulo` },
+      { ok: temIndust, label:"CNAE industrial",       text: temIndust ? `${indMatch[0].cod} — ${labelIndustria(indMatch[0].cod)}` : "Nenhum CNAE industrial (divisões 10–33) identificado" },
+    ];
+
+    let parecer;
+    if (perfil) {
+      parecer = `CNAE ${indMatch[0].cod} — ${labelIndustria(indMatch[0].cod)}. Empresa ativa em ${d.municipio||""}/SP. ✔ Perfil industrial confirmado para associação à CIESP.`;
+    } else {
+      const motivos = [];
+      if (!ativa)    motivos.push("situação cadastral irregular");
+      if (!emSP)     motivos.push(`empresa sediada em ${uf||"estado não identificado"}, fora de SP`);
+      if (!temIndust) motivos.push("CNAE não pertence às divisões industriais 10–33");
+      parecer = `Empresa não atende aos critérios CIESP: ${motivos.join("; ")}. ✗ Sem perfil industrial em SP.`;
+    }
+
+    const chips = cnaes.map(c => {
+      const ind = isIndustria(c.cod);
+      return `<span class="cnae-chip ${ind?"prim":""}" title="${c.desc}">${c.cod}${ind?" ★":""}</span>`;
+    }).join("");
+
+    const criteriosHTML = criterios.map(cr => `
+      <div class="criteria-item ${cr.ok?"ok":"fail"}">
+        <div class="criteria-icon">${cr.ok?"✅":"✗"}</div>
+        <div><div class="criteria-label">${cr.label}</div><div class="criteria-text">${cr.text}</div></div>
+      </div>`).join("");
+
+    const details = indMatch.map(c => `
+      <div class="cnae-detail-item prim">
+        <div class="cdi-cod">${c.cod}</div>
+        <div><div class="cdi-desc">${c.desc||labelIndustria(c.cod)}${c.principal?" (principal)":""}</div>
+        <div class="cdi-context">${labelIndustria(c.cod)} — divisão industrial CIESP</div></div>
+      </div>`).join("");
+
+    document.getElementById("resultadoCiesp").innerHTML = `
+      <div class="result-card">
+        ${buildTop(raw, d)}
+        <div class="result-body">
+          <div class="sec-label">CNAEs cadastrados</div>
+          <div class="cnae-grid">${chips||'<span style="color:var(--text3);font-size:13px">Nenhum CNAE</span>'}</div>
+          <hr class="divider">
+          <div class="sec-label">Verificação de critérios</div>
+          <div class="criteria-list">${criteriosHTML}</div>
+          <div class="verdict verdict-${tipo}">
+            <div class="verdict-icon">${tipo==="yes"?"✅":"○"}</div>
+            <div>
+              <div class="verdict-label">${tipo==="yes"?"Perfil industrial confirmado":"Sem perfil CIESP"}</div>
+              <div class="verdict-title">${tipo==="yes"?"Elegível — CIESP":"Não elegível — CIESP"}</div>
+              <div class="verdict-body">${parecer}</div>
+            </div>
+          </div>
+          ${details?`<div class="sec-label">CNAEs industriais identificados</div><div class="cnae-detail-list">${details}</div>`:""}
+        </div>
+      </div>`;
+  } catch(e) { showError("resultadoCiesp", e.message||"Erro ao consultar."); }
+  finally { btn.disabled = false; }
+}
+
+// ══════════════════════════════════════════════════════
+// CONSULTA GERAL — todas as associações de uma vez
+// ══════════════════════════════════════════════════════
+async function consultarGeral() {
+  const raw = document.getElementById("cnpjGeral").value.replace(/\D/g,"");
+  if (raw.length !== 14) { showError("resultadoGeral","CNPJ inválido."); return; }
+  const btn = document.getElementById("btnGeral"); btn.disabled = true;
+  showSkeleton("resultadoGeral");
+  try {
+    const res = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${raw}`);
+    if (!res.ok) throw new Error("CNPJ não encontrado na Receita Federal.");
+    const d = await res.json();
+
+    const cnaes = [];
+    if (d.cnae_fiscal) cnaes.push({ cod: String(d.cnae_fiscal), desc: d.cnae_fiscal_descricao||"", principal: true });
+    (d.cnaes_secundarios||[]).forEach(c => cnaes.push({ cod: String(c.codigo), desc: c.descricao||"", principal: false }));
+
+    const ativa    = isAtiva(d.descricao_situacao_cadastral);
+    const uf       = (d.uf||"").toUpperCase();
+    const munNorm  = normMun(d.municipio);
+
+    // Avaliações
+    const temAneor  = cnaes.some(c => clsAneor(c.cod) !== null);
+    const temAcomac = cnaes.some(c => clsAcomac(c.cod) !== null) && MUNICIPIOS_BA.has(munNorm) && uf === "BA";
+    const temAcia   = ["SP","MG","RJ"].includes(uf);
+    const temAcp    = ["PE","AL","PB","BA","PI","CE"].includes(uf);
+    const temCiesp  = uf === "SP" && cnaes.some(c => isIndustria(c.cod));
+
+    const assocs = [
+      { nome:"ANEOR",  ok: ativa && temAneor,  desc: temAneor  ? "CNAE rodoviário identificado" : "Sem CNAE rodoviário" },
+      { nome:"ACOMAC", ok: ativa && temAcomac, desc: temAcomac ? `Município ${d.municipio}/BA + CNAE material de construção` : "CNAE ou município BA não atendido" },
+      { nome:"ACIA",   ok: ativa && temAcia,   desc: temAcia   ? `Empresa em ${uf} — área de atuação ACIA` : `${uf} fora da área ACIA (SP/MG/RJ)` },
+      { nome:"ACP",    ok: ativa && temAcp,    desc: temAcp    ? `Empresa em ${uf} — área de atuação ACP` : `${uf} fora da área ACP (PE/AL/PB/BA/PI/CE)` },
+      { nome:"CIESP",  ok: ativa && temCiesp,  desc: temCiesp  ? "Indústria ativa em SP" : "Indústria em SP não confirmada" },
+    ];
+
+    const temAlgum = assocs.some(a => a.ok);
+    const cap = d.capital_social ? "R$ " + Number(d.capital_social).toLocaleString("pt-BR") : null;
+
+    const assocHTML = assocs.map(a => `
+      <div class="criteria-item ${a.ok?"ok":"fail"}">
+        <div class="criteria-icon">${a.ok?"✅":"○"}</div>
+        <div>
+          <div class="criteria-label">${a.nome}</div>
+          <div class="criteria-text">${a.desc}</div>
+        </div>
+      </div>`).join("");
+
+    const resumo = temAlgum
+      ? `Empresa elegível para: <strong style="color:var(--green-lt)">${assocs.filter(a=>a.ok).map(a=>a.nome).join(", ")}</strong>`
+      : `Empresa <strong style="color:var(--red)">não elegível</strong> para nenhuma das associações verificadas.`;
+
+    document.getElementById("resultadoGeral").innerHTML = `
+      <div class="result-card">
+        ${buildTop(raw, d)}
+        <div class="result-body">
+          <div class="verdict verdict-${temAlgum?"yes":"no"}" style="margin-bottom:1.5rem">
+            <div class="verdict-icon">${temAlgum?"✅":"○"}</div>
+            <div>
+              <div class="verdict-label">${temAlgum?"Associações identificadas":"Sem associações identificadas"}</div>
+              <div class="verdict-body" style="font-size:14px;margin-top:4px">${resumo}</div>
+            </div>
+          </div>
+          <div class="sec-label">Resultado por associação</div>
+          <div class="criteria-list">${assocHTML}</div>
+        </div>
+      </div>`;
+  } catch(e) { showError("resultadoGeral", e.message||"Erro ao consultar."); }
   finally { btn.disabled = false; }
 }
 </script>
