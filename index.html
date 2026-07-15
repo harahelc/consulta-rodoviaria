@@ -163,6 +163,8 @@
     <div class="tabs-inner">
       <button class="tab-btn active" onclick="switchTab('aneor', this)">ANEOR <span class="tab-badge">Obras Rodoviárias</span></button>
       <button class="tab-btn" onclick="switchTab('acomac', this)">ACOMAC <span class="tab-badge">Material de Construção</span></button>
+      <button class="tab-btn" onclick="switchTab('acia', this)">ACIA <span class="tab-badge">SP · MG · RJ</span></button>
+      <button class="tab-btn" onclick="switchTab('acp', this)">ACP <span class="tab-badge">Nordeste</span></button>
     </div>
   </div>
 
@@ -212,6 +214,53 @@
       <div class="legend-item"><div class="leg-dot" style="background:var(--gold-dk)"></div>Município regional Salvador</div>
     </div>
   </div>
+
+  <!-- ACIA -->
+  <div class="tab-panel" id="panel-acia">
+    <div class="hero">
+      <div class="hero-eyebrow"><span class="eyebrow-line"></span>ACIA · Verificação por CNPJ<span class="eyebrow-line"></span></div>
+      <h1>A empresa tem perfil para a <em>ACIA?</em></h1>
+      <p>Verifica se a empresa está ativa e sediada nos estados de São Paulo, Minas Gerais ou Rio de Janeiro.</p>
+    </div>
+    <div class="consulta-area">
+      <div class="input-wrapper">
+        <label class="input-label" for="cnpjAcia">CNPJ da empresa</label>
+        <div class="input-row">
+          <input type="text" id="cnpjAcia" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarUF('acia')" />
+          <button class="btn-consultar" id="btnAcia" onclick="consultarUF('acia')">Consultar</button>
+        </div>
+      </div>
+      <div id="resultadoAcia" class="resultado"></div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="leg-dot" style="background:var(--green-bd)"></div>Empresa ativa em SP, MG ou RJ</div>
+      <div class="legend-item"><div class="leg-dot" style="background:var(--red-bd)"></div>Fora da área de atuação</div>
+    </div>
+  </div>
+
+  <!-- ACP -->
+  <div class="tab-panel" id="panel-acp">
+    <div class="hero">
+      <div class="hero-eyebrow"><span class="eyebrow-line"></span>ACP · Verificação por CNPJ<span class="eyebrow-line"></span></div>
+      <h1>A empresa tem perfil para a <em>ACP?</em></h1>
+      <p>Verifica se a empresa está ativa e sediada em Pernambuco ou estados vizinhos: AL, PB, BA, PI ou CE.</p>
+    </div>
+    <div class="consulta-area">
+      <div class="input-wrapper">
+        <label class="input-label" for="cnpjAcp">CNPJ da empresa</label>
+        <div class="input-row">
+          <input type="text" id="cnpjAcp" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarUF('acp')" />
+          <button class="btn-consultar" id="btnAcp" onclick="consultarUF('acp')">Consultar</button>
+        </div>
+      </div>
+      <div id="resultadoAcp" class="resultado"></div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="leg-dot" style="background:var(--green-bd)"></div>Empresa ativa em PE, AL, PB, BA, PI ou CE</div>
+      <div class="legend-item"><div class="leg-dot" style="background:var(--red-bd)"></div>Fora da área de atuação</div>
+    </div>
+  </div>
+
 </main>
 
 <footer>
@@ -483,6 +532,94 @@ async function consultarAcomac() {
         </div>
       </div>`;
   } catch(e) { showError("resultadoAcomac", e.message||"Erro ao consultar."); }
+  finally { btn.disabled = false; }
+}
+
+// ══════════════════════════════════════════════════════
+// ACIA e ACP — verificação apenas por UF
+// ══════════════════════════════════════════════════════
+const UF_CONFIG = {
+  acia: {
+    ufs: ["SP","MG","RJ"],
+    nome: "ACIA",
+    descUFs: "São Paulo (SP), Minas Gerais (MG) ou Rio de Janeiro (RJ)",
+    inputId: "cnpjAcia",
+    btnId: "btnAcia",
+    resultId: "resultadoAcia",
+    simLabel: "Elegível — ACIA",
+    simSub: "Empresa ativa em estado coberto pela ACIA",
+    naoLabel: "Não elegível — ACIA",
+    naoSub: "Empresa fora da área de atuação da ACIA",
+  },
+  acp: {
+    ufs: ["PE","AL","PB","BA","PI","CE"],
+    nome: "ACP",
+    descUFs: "Pernambuco (PE), Alagoas (AL), Paraíba (PB), Bahia (BA), Piauí (PI) ou Ceará (CE)",
+    inputId: "cnpjAcp",
+    btnId: "btnAcp",
+    resultId: "resultadoAcp",
+    simLabel: "Elegível — ACP",
+    simSub: "Empresa ativa em estado coberto pela ACP",
+    naoLabel: "Não elegível — ACP",
+    naoSub: "Empresa fora da área de atuação da ACP",
+  }
+};
+
+async function consultarUF(assoc) {
+  const cfg = UF_CONFIG[assoc];
+  const raw = document.getElementById(cfg.inputId).value.replace(/\D/g,"");
+  if (raw.length !== 14) { showError(cfg.resultId, "CNPJ inválido. Informe os 14 dígitos."); return; }
+  const btn = document.getElementById(cfg.btnId); btn.disabled = true;
+  showSkeleton(cfg.resultId);
+  try {
+    const res = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${raw}`);
+    if (!res.ok) throw new Error("CNPJ não encontrado na Receita Federal.");
+    const d = await res.json();
+
+    const ativa  = isAtiva(d.descricao_situacao_cadastral);
+    const uf     = (d.uf||"").toUpperCase();
+    const temUF  = cfg.ufs.includes(uf);
+    const perfil = ativa && temUF;
+    const tipo   = perfil ? "yes" : "no";
+
+    const criterios = [
+      { ok: ativa,  label: "Situação cadastral",       text: ativa ? "Empresa ativa na Receita Federal" : "Empresa com situação irregular — não elegível" },
+      { ok: temUF,  label: `Estado — ${cfg.nome}`,     text: temUF ? `${d.municipio||""}${uf?" / "+uf:""} está na área de atuação da ${cfg.nome}` : `${d.municipio||"Município não identificado"}${uf?" / "+uf:""} fora da área de atuação (elegíveis: ${cfg.ufs.join(", ")})` },
+    ];
+
+    let parecer;
+    if (perfil) {
+      parecer = `Empresa ativa em ${d.municipio||""}${uf?"/"+uf:""}. Estado ${uf} está dentro da área de atuação da ${cfg.nome}. ✔ Perfil completo para associação.`;
+    } else {
+      const motivos = [];
+      if (!ativa) motivos.push("situação cadastral irregular");
+      if (!temUF)  motivos.push(`estado ${uf||"não identificado"} fora da área de atuação (elegíveis: ${cfg.ufs.join(", ")})`);
+      parecer = `Empresa não atende aos critérios ${cfg.nome}: ${motivos.join("; ")}. ✗ Sem perfil para esta associação.`;
+    }
+
+    const criteriosHTML = criterios.map(cr => `
+      <div class="criteria-item ${cr.ok?"ok":"fail"}">
+        <div class="criteria-icon">${cr.ok?"✅":"✗"}</div>
+        <div><div class="criteria-label">${cr.label}</div><div class="criteria-text">${cr.text}</div></div>
+      </div>`).join("");
+
+    document.getElementById(cfg.resultId).innerHTML = `
+      <div class="result-card">
+        ${buildTop(raw, d)}
+        <div class="result-body">
+          <div class="sec-label">Verificação de critérios</div>
+          <div class="criteria-list">${criteriosHTML}</div>
+          <div class="verdict verdict-${tipo}">
+            <div class="verdict-icon">${tipo==="yes"?"✅":"○"}</div>
+            <div>
+              <div class="verdict-label">${tipo==="yes"?cfg.simLabel:cfg.naoLabel}</div>
+              <div class="verdict-title">${tipo==="yes"?cfg.simSub:cfg.naoSub}</div>
+              <div class="verdict-body">${parecer}</div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  } catch(e) { showError(cfg.resultId, e.message||"Erro ao consultar."); }
   finally { btn.disabled = false; }
 }
 </script>
