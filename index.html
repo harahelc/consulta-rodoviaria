@@ -3,102 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Consulta de Perfil Rodoviário — Grupo AG Capital</title>
+  <title>Consulta de Perfil — Grupo AG Capital</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg:       #0e0e0e;
-      --bg2:      #141414;
-      --bg3:      #1a1a1a;
-      --border:   #2a2a2a;
-      --border2:  #333;
-      --gold:     #c9a84c;
-      --gold-lt:  #e8c96a;
-      --gold-dk:  #7a5e1e;
-      --gold-bg:  #1a1400;
-      --green:    #3d7a4a;
-      --green-lt: #5aad6e;
-      --green-bg: #0a1a0e;
-      --green-bd: #1e4028;
-      --amber-bg: #1a1000;
-      --amber-bd: #4a2e00;
-      --amber-lt: #e8a020;
-      --red:      #b94040;
-      --red-bg:   #180808;
-      --red-bd:   #4a1515;
-      --text:     #e8e4dc;
-      --text2:    #8a857a;
-      --text3:    #4a4640;
-      --serif:    'Playfair Display', Georgia, serif;
-      --sans:     'Inter', system-ui, sans-serif;
+      --bg:       #0e0e0e; --bg2: #141414; --bg3: #1a1a1a;
+      --border:   #2a2a2a; --border2: #333;
+      --gold:     #c9a84c; --gold-lt: #e8c96a; --gold-dk: #7a5e1e; --gold-bg: #1a1400;
+      --green-lt: #5aad6e; --green-bg: #0a1a0e; --green-bd: #1e4028;
+      --red:      #b94040; --red-bg: #180808; --red-bd: #4a1515;
+      --text:     #e8e4dc; --text2: #8a857a; --text3: #4a4640;
+      --serif: 'Playfair Display', Georgia, serif; --sans: 'Inter', system-ui, sans-serif;
     }
     html { font-size: 16px; }
     body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; display: flex; flex-direction: column; }
 
-    header {
-      background: var(--bg2); border-bottom: 1px solid var(--border);
-      padding: 0 2.5rem; height: 64px; display: flex; align-items: center;
-      justify-content: space-between; position: sticky; top: 0; z-index: 10;
-    }
+    header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 2.5rem; height: 64px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
     .header-brand { display: flex; align-items: center; gap: 14px; }
-    .logo-badge {
-      width: 38px; height: 38px;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-lt) 100%);
-      border-radius: 8px; display: flex; align-items: center; justify-content: center;
-      font-family: var(--serif); font-size: 15px; font-weight: 600; color: #0e0e0e;
-    }
+    .logo-badge { width: 38px; height: 38px; background: linear-gradient(135deg, var(--gold) 0%, var(--gold-lt) 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 15px; font-weight: 600; color: #0e0e0e; }
     .brand-name { font-family: var(--serif); font-size: 14px; font-weight: 600; color: var(--gold); }
     .brand-sub { font-size: 11px; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 2px; }
     .header-tag { font-size: 11px; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--border2); padding: 4px 12px; border-radius: 4px; }
 
     main { flex: 1; display: flex; flex-direction: column; align-items: center; }
 
-    .hero {
-      width: 100%; background: var(--bg2); border-bottom: 1px solid var(--border);
-      padding: 4rem 2rem 3.5rem; text-align: center; position: relative; overflow: hidden;
-    }
-    .hero::before {
-      content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
-      width: 600px; height: 300px;
-      background: radial-gradient(ellipse at center, rgba(201,168,76,0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem;
-    }
+    .tabs-bar { width: 100%; background: var(--bg2); border-bottom: 1px solid var(--border); display: flex; justify-content: center; padding: 0 2rem; }
+    .tabs-inner { display: flex; }
+    .tab-btn { padding: 1rem 2rem; font-size: 13px; font-weight: 500; color: var(--text3); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; letter-spacing: 0.04em; transition: all 0.2s; white-space: nowrap; }
+    .tab-btn:hover { color: var(--text2); }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .tab-badge { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px; margin-left: 8px; vertical-align: middle; }
+    .tab-btn.active .tab-badge { background: var(--gold-bg); color: var(--gold); border: 1px solid var(--gold-dk); }
+    .tab-btn:not(.active) .tab-badge { background: var(--bg3); color: var(--text3); border: 1px solid var(--border); }
+
+    .tab-panel { display: none; width: 100%; flex-direction: column; align-items: center; }
+    .tab-panel.active { display: flex; }
+
+    .hero { width: 100%; background: var(--bg2); border-bottom: 1px solid var(--border); padding: 3.5rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); width: 600px; height: 300px; background: radial-gradient(ellipse at center, rgba(201,168,76,0.06) 0%, transparent 70%); pointer-events: none; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
     .eyebrow-line { width: 24px; height: 1px; background: var(--gold-dk); }
-    .hero h1 { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 500; line-height: 1.2; color: var(--text); margin-bottom: 1rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(1.6rem, 4vw, 2.5rem); font-weight: 500; line-height: 1.2; color: var(--text); margin-bottom: 0.75rem; max-width: 580px; margin-left: auto; margin-right: auto; }
     .hero h1 em { font-style: normal; color: var(--gold); }
-    .hero p { font-size: 15px; color: var(--text2); line-height: 1.7; max-width: 460px; margin: 0 auto; font-weight: 300; }
+    .hero p { font-size: 14px; color: var(--text2); line-height: 1.7; max-width: 440px; margin: 0 auto; font-weight: 300; }
 
-    .consulta-area { width: 100%; max-width: 640px; padding: 2.5rem 1.5rem; }
-
+    .consulta-area { width: 100%; max-width: 640px; padding: 2rem 1.5rem; }
     .input-wrapper { background: var(--bg2); border: 1px solid var(--border2); border-radius: 12px; padding: 1.75rem; margin-bottom: 1.5rem; }
     .input-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); display: block; margin-bottom: 10px; }
     .input-row { display: flex; gap: 10px; }
-    .cnpj-input {
-      flex: 1; height: 46px; background: var(--bg); border: 1px solid var(--border2);
-      border-radius: 8px; padding: 0 14px; font-family: 'Courier New', monospace;
-      font-size: 15px; letter-spacing: 0.08em; color: var(--text); outline: none; transition: border-color 0.2s;
-    }
+    .cnpj-input { flex: 1; height: 46px; background: var(--bg); border: 1px solid var(--border2); border-radius: 8px; padding: 0 14px; font-family: 'Courier New', monospace; font-size: 15px; letter-spacing: 0.08em; color: var(--text); outline: none; transition: border-color 0.2s; }
     .cnpj-input:focus { border-color: var(--gold-dk); }
     .cnpj-input::placeholder { color: var(--text3); font-family: var(--sans); letter-spacing: 0; }
-    .btn-consultar {
-      height: 46px; padding: 0 1.5rem;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-lt) 100%);
-      color: #0e0e0e; font-family: var(--sans); font-size: 13px; font-weight: 600;
-      letter-spacing: 0.04em; border: none; border-radius: 8px; cursor: pointer;
-      white-space: nowrap; transition: opacity 0.2s, transform 0.1s;
-    }
+    .btn-consultar { height: 46px; padding: 0 1.5rem; background: linear-gradient(135deg, var(--gold) 0%, var(--gold-lt) 100%); color: #0e0e0e; font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.04em; border: none; border-radius: 8px; cursor: pointer; white-space: nowrap; transition: opacity 0.2s, transform 0.1s; }
     .btn-consultar:hover { opacity: 0.88; }
     .btn-consultar:active { transform: scale(0.98); }
     .btn-consultar:disabled { opacity: 0.35; cursor: not-allowed; }
 
-    #resultado { width: 100%; }
-
+    .resultado { width: 100%; }
     .skeleton { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; }
     .skel { height: 11px; border-radius: 4px; background: var(--bg3); margin-bottom: 10px; animation: pulse 1.5s ease infinite; }
     @keyframes pulse { 0%,100%{opacity:.35} 50%{opacity:.75} }
@@ -108,60 +71,56 @@
     .result-cnpj { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text3); margin-bottom: 5px; font-family: 'Courier New', monospace; }
     .result-name { font-family: var(--serif); font-size: 20px; font-weight: 500; color: var(--text); margin-bottom: 10px; line-height: 1.3; }
     .pills { display: flex; flex-wrap: wrap; gap: 7px; }
-    .pill { font-size: 11px; padding: 3px 10px; border-radius: 4px; font-weight: 500; letter-spacing: 0.04em; }
+    .pill { font-size: 11px; padding: 3px 10px; border-radius: 4px; font-weight: 500; }
     .pill-active   { background: var(--green-bg); color: var(--green-lt); border: 1px solid var(--green-bd); }
-    .pill-inactive { background: var(--red-bg);   color: var(--red);      border: 1px solid var(--red-bd); }
-    .pill-neutral  { background: var(--bg3);       color: var(--text2);    border: 1px solid var(--border2); }
-    .pill-gold     { background: var(--gold-bg);   color: var(--gold);     border: 1px solid var(--gold-dk); }
+    .pill-inactive { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-bd); }
+    .pill-neutral  { background: var(--bg3); color: var(--text2); border: 1px solid var(--border2); }
+    .pill-gold     { background: var(--gold-bg); color: var(--gold); border: 1px solid var(--gold-dk); }
 
     .result-body { padding: 1.5rem 1.75rem; }
     .sec-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); margin-bottom: 10px; }
     .cnae-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
-    .cnae-chip {
-      font-family: 'Courier New', monospace; font-size: 11px; padding: 4px 9px;
-      border-radius: 4px; background: var(--bg3); color: var(--text2);
-      border: 1px solid var(--border); cursor: default; transition: all 0.15s; position: relative;
-    }
+    .cnae-chip { font-family: 'Courier New', monospace; font-size: 11px; padding: 4px 9px; border-radius: 4px; background: var(--bg3); color: var(--text2); border: 1px solid var(--border); cursor: default; }
     .cnae-chip.prim  { background: var(--green-bg); color: var(--green-lt); border-color: var(--green-bd); }
     .cnae-chip.colab { background: var(--gold-bg);  color: var(--gold);     border-color: var(--gold-dk); }
 
-    .verdict {
-      border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;
-      border: 1px solid; display: flex; align-items: flex-start; gap: 14px;
-    }
-    .verdict-yes     { background: var(--green-bg); border-color: var(--green-bd); }
-    .verdict-partial { background: var(--amber-bg); border-color: var(--amber-bd); }
-    .verdict-no      { background: var(--red-bg);   border-color: var(--red-bd); }
+    .verdict { border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; border: 1px solid; display: flex; align-items: flex-start; gap: 14px; }
+    .verdict-yes { background: var(--green-bg); border-color: var(--green-bd); }
+    .verdict-no  { background: var(--red-bg);   border-color: var(--red-bd); }
     .verdict-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
     .verdict-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
-    .verdict-yes     .verdict-label { color: var(--green-lt); }
-    .verdict-partial .verdict-label { color: var(--amber-lt); }
-    .verdict-no      .verdict-label { color: var(--red); }
+    .verdict-yes .verdict-label { color: var(--green-lt); }
+    .verdict-no  .verdict-label { color: var(--red); }
     .verdict-title { font-family: var(--serif); font-size: 16px; font-weight: 500; margin-bottom: 6px; }
-    .verdict-yes     .verdict-title { color: var(--green-lt); }
-    .verdict-partial .verdict-title { color: var(--amber-lt); }
-    .verdict-no      .verdict-title { color: var(--red); }
+    .verdict-yes .verdict-title { color: var(--green-lt); }
+    .verdict-no  .verdict-title { color: var(--red); }
     .verdict-body { font-size: 13px; line-height: 1.7; }
-    .verdict-yes     .verdict-body { color: #5aad6eaa; }
-    .verdict-partial .verdict-body { color: #e8a020aa; }
-    .verdict-no      .verdict-body { color: #b94040aa; }
+    .verdict-yes .verdict-body { color: #5aad6eaa; }
+    .verdict-no  .verdict-body { color: #b94040aa; }
 
-    .cnae-detail-list { margin-top: 1rem; display: flex; flex-direction: column; gap: 8px; }
-    .cnae-detail-item {
-      background: var(--bg3); border: 1px solid var(--border); border-radius: 6px;
-      padding: 10px 14px; display: flex; gap: 12px; align-items: flex-start;
-    }
+    .criteria-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
+    .criteria-item { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; display: flex; align-items: flex-start; gap: 12px; }
+    .criteria-item.ok   { border-color: var(--green-bd); background: var(--green-bg); }
+    .criteria-item.fail { border-color: var(--red-bd);   background: var(--red-bg); }
+    .criteria-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+    .criteria-label { font-size: 12px; font-weight: 600; margin-bottom: 2px; }
+    .criteria-item.ok   .criteria-label { color: var(--green-lt); }
+    .criteria-item.fail .criteria-label { color: var(--red); }
+    .criteria-text { font-size: 11px; }
+    .criteria-item.ok   .criteria-text { color: #5aad6e88; }
+    .criteria-item.fail .criteria-text { color: #b9404088; }
+
+    .cnae-detail-list { display: flex; flex-direction: column; gap: 8px; }
+    .cnae-detail-item { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; display: flex; gap: 12px; align-items: flex-start; }
     .cnae-detail-item.prim  { border-color: var(--green-bd); background: var(--green-bg); }
     .cnae-detail-item.colab { border-color: var(--gold-dk);  background: var(--gold-bg); }
     .cdi-cod { font-family: 'Courier New', monospace; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
     .cnae-detail-item.prim  .cdi-cod { color: var(--green-lt); }
     .cnae-detail-item.colab .cdi-cod { color: var(--gold); }
-    .cnae-detail-item:not(.prim):not(.colab) .cdi-cod { color: var(--text3); }
-    .cdi-info {}
     .cdi-desc { font-size: 12px; color: var(--text2); margin-bottom: 2px; }
+    .cnae-detail-item.prim  .cdi-desc { color: var(--green-lt); }
+    .cnae-detail-item.colab .cdi-desc { color: var(--gold); }
     .cdi-context { font-size: 11px; color: var(--text3); font-style: italic; }
-    .cnae-detail-item.prim  .cdi-context { color: #3d7a4a99; }
-    .cnae-detail-item.colab .cdi-context { color: #c9a84c88; }
 
     .divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
     .error-box { background: var(--red-bg); border: 1px solid var(--red-bd); border-radius: 8px; padding: 1rem 1.25rem; color: var(--red); font-size: 13px; }
@@ -174,7 +133,6 @@
     .footer-brand { font-family: var(--serif); font-size: 13px; color: var(--gold); }
     .footer-note { font-size: 11px; color: var(--text3); }
     .footer-note a { color: var(--text2); text-decoration: none; }
-    .footer-note a:hover { color: var(--gold); }
 
     @media (max-width: 520px) {
       .input-row { flex-direction: column; }
@@ -183,6 +141,7 @@
       .hero { padding: 2.5rem 1.25rem 2rem; }
       footer { padding: 1rem; }
       .footer-brand { display: none; }
+      .tab-btn { padding: 1rem; font-size: 12px; }
     }
   </style>
 </head>
@@ -196,256 +155,335 @@
       <div class="brand-sub">Inteligência de Negócios</div>
     </div>
   </div>
-  <div class="header-tag">Perfil Rodoviário · ANEOR</div>
+  <div class="header-tag">Consulta de Perfil</div>
 </header>
 
 <main>
-  <div class="hero">
-    <div class="hero-eyebrow">
-      <span class="eyebrow-line"></span>
-      Verificação por CNPJ
-      <span class="eyebrow-line"></span>
+  <div class="tabs-bar">
+    <div class="tabs-inner">
+      <button class="tab-btn active" onclick="switchTab('aneor', this)">ANEOR <span class="tab-badge">Obras Rodoviárias</span></button>
+      <button class="tab-btn" onclick="switchTab('acomac', this)">ACOMAC <span class="tab-badge">Material de Construção</span></button>
     </div>
-    <h1>A empresa tem perfil para <em>obras rodoviárias?</em></h1>
-    <p>Consulta gratuita à Receita Federal. Analisa CNAEs com base nos critérios oficiais da ANEOR e emite parecer instantâneo.</p>
   </div>
 
-  <div class="consulta-area">
-    <div class="input-wrapper">
-      <label class="input-label" for="cnpjInput">CNPJ da empresa</label>
-      <div class="input-row">
-        <input type="text" id="cnpjInput" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" />
-        <button class="btn-consultar" id="btnConsultar" onclick="consultar()">Consultar</button>
+  <!-- ANEOR -->
+  <div class="tab-panel active" id="panel-aneor">
+    <div class="hero">
+      <div class="hero-eyebrow"><span class="eyebrow-line"></span>ANEOR · Verificação por CNPJ<span class="eyebrow-line"></span></div>
+      <h1>A empresa tem perfil para <em>obras rodoviárias?</em></h1>
+      <p>Consulta gratuita à Receita Federal. Analisa CNAEs com base nos critérios oficiais da ANEOR.</p>
+    </div>
+    <div class="consulta-area">
+      <div class="input-wrapper">
+        <label class="input-label" for="cnpjAneor">CNPJ da empresa</label>
+        <div class="input-row">
+          <input type="text" id="cnpjAneor" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarAneor()" />
+          <button class="btn-consultar" id="btnAneor" onclick="consultarAneor()">Consultar</button>
+        </div>
       </div>
+      <div id="resultadoAneor" class="resultado"></div>
     </div>
-    <div id="resultado"></div>
+    <div class="legend">
+      <div class="legend-item"><div class="leg-dot" style="background:var(--green-bd)"></div>CNAE rodoviário primário</div>
+      <div class="legend-item"><div class="leg-dot" style="background:var(--gold-dk)"></div>CNAE colaborador</div>
+      <div class="legend-item"><div class="leg-dot" style="background:var(--border2)"></div>Sem relação</div>
+    </div>
   </div>
 
-  <div class="legend">
-    <div class="legend-item"><div class="leg-dot" style="background:var(--green-bd)"></div>CNAE rodoviário primário (Efetiva)</div>
-    <div class="legend-item"><div class="leg-dot" style="background:var(--gold-dk)"></div>CNAE colaborador / fornecedor</div>
-    <div class="legend-item"><div class="leg-dot" style="background:var(--border2)"></div>CNAE sem relação identificada</div>
+  <!-- ACOMAC -->
+  <div class="tab-panel" id="panel-acomac">
+    <div class="hero">
+      <div class="hero-eyebrow"><span class="eyebrow-line"></span>ACOMAC · Verificação por CNPJ<span class="eyebrow-line"></span></div>
+      <h1>A empresa tem perfil para a <em>ACOMAC Salvador?</em></h1>
+      <p>Verifica CNAE de material de construção e município dentro da regional de Salvador/BA.</p>
+    </div>
+    <div class="consulta-area">
+      <div class="input-wrapper">
+        <label class="input-label" for="cnpjAcomac">CNPJ da empresa</label>
+        <div class="input-row">
+          <input type="text" id="cnpjAcomac" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarAcomac()" />
+          <button class="btn-consultar" id="btnAcomac" onclick="consultarAcomac()">Consultar</button>
+        </div>
+      </div>
+      <div id="resultadoAcomac" class="resultado"></div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="leg-dot" style="background:var(--green-bd)"></div>CNAE material de construção</div>
+      <div class="legend-item"><div class="leg-dot" style="background:var(--gold-dk)"></div>Município regional Salvador</div>
+    </div>
   </div>
 </main>
 
 <footer>
   <div class="footer-brand">Grupo AG Capital</div>
-  <div class="footer-note">
-    Dados via <a href="https://brasilapi.com.br" target="_blank">BrasilAPI</a> · Receita Federal · Critérios <a href="https://aneor.com.br" target="_blank">ANEOR</a> · 100% gratuito
-  </div>
+  <div class="footer-note">Dados via <a href="https://brasilapi.com.br" target="_blank">BrasilAPI</a> · Receita Federal · 100% gratuito</div>
 </footer>
 
 <script>
-// ── BASE DE CONHECIMENTO ANEOR ──────────────────────────────────────────────
-const CNAES_DB = {
-  // PRIMÁRIOS — construtoras / executoras diretas
-  "42111": { cat: "prim", label: "Construção de rodovias e ferrovias", context: "Atividade central da ANEOR. Abrange novas rodovias, duplicações, restaurações, recapeamentos, drenagem, sinalização e iluminação viária." },
-  "42112": { cat: "prim", label: "Pintura para sinalização em pistas rodoviárias", context: "Serviço diretamente ligado à infraestrutura rodoviária — sinalização horizontal em rodovias e aeroportos." },
-  "42120": { cat: "prim", label: "Obras de arte especiais", context: "Construção de pontes, viadutos e túneis — estruturas essenciais em projetos rodoviários." },
-  "42130": { cat: "prim", label: "Obras de urbanização — ruas, praças e calçadas", context: "Inclui pavimentação urbana e obras viárias municipais com perfil rodoviário." },
-  "42140": { cat: "prim", label: "Manutenção de rodovias", context: "Conservação rotineira e periódica de rodovias — serviço permanente em concessões e contratos públicos." },
-  "42990": { cat: "prim", label: "Outras obras de engenharia civil", context: "Engloba obras especializadas de infraestrutura com potencial rodoviário." },
-  "42918": { cat: "prim", label: "Obras portuárias, marítimas e fluviais", context: "Obras de engenharia pesada com perfil compatível com construtoras rodoviárias." },
-
-  // COLABORADORES — engenharia, projetos, consultoria
-  "71110": { cat: "colab", label: "Serviços de arquitetura", context: "Projetos geométricos, traçados viários, urbanismo e estudos de desapropriação para obras rodoviárias." },
-  "71120": { cat: "colab", label: "Serviços de engenharia", context: "Projetos estruturais, de pavimentação, drenagem, sinalização e estudos de tráfego — essenciais em rodovias." },
-  "71197": { cat: "colab", label: "Serviços de cartografia, topografia e geodésia", context: "Levantamentos topográficos e cadastrais necessários em projetos rodoviários." },
-  "71198": { cat: "colab", label: "Testes, análises e ensaios de materiais", context: "Controle tecnológico de materiais para pavimentação — laboratórios de obras." },
-  "71199": { cat: "colab", label: "Consultoria em meio ambiente", context: "Estudos ambientais e licenciamentos exigidos em obras rodoviárias." },
-  "71200": { cat: "colab", label: "Atividades técnicas de apoio à engenharia", context: "Sondagens, ensaios geotécnicos e atividades de suporte a projetos de infraestrutura." },
-  "74900": { cat: "colab", label: "Consultoria e gestão", context: "Supervisão, fiscalização e gerenciamento de obras rodoviárias — Associada Colaboradora ANEOR." },
-
-  // COLABORADORES — manutenção e concessões
-  "52214": { cat: "colab", label: "Concessionárias de rodovias / pedágio", context: "Operação e manutenção de rodovias concedidas — categoria estratégica no setor rodoviário." },
-  "33147": { cat: "colab", label: "Manutenção de máquinas e equipamentos", context: "Manutenção de frotas e equipamentos pesados utilizados em obras rodoviárias." },
-
-  // COLABORADORES — fornecedores de materiais
-  "23915": { cat: "colab", label: "Fabricação de cimento", context: "Insumo fundamental para obras de infraestrutura rodoviária." },
-  "23916": { cat: "colab", label: "Artefatos de cimento para construção", context: "Peças e componentes de cimento para obras de infraestrutura." },
-  "23991": { cat: "colab", label: "Fabricação de pré-moldados de concreto", context: "Estruturas pré-moldadas utilizadas em pontes, viadutos e obras rodoviárias." },
-  "23992": { cat: "colab", label: "Fabricação de massa asfáltica", context: "Insumo central para pavimentação de rodovias — fornecedor estratégico ANEOR." },
-  "08100": { cat: "colab", label: "Extração de pedra, areia e brita", context: "Indústria de agregados — fornecimento de materiais essenciais para pavimentação." },
-  "24113": { cat: "colab", label: "Produção de ferro-gusa e aço", context: "Fornecimento de aço estrutural para pontes, viadutos e obras rodoviárias." },
-  "22293": { cat: "colab", label: "Fabricação de artefatos de plástico para sinalização", context: "Barreiras, cones e dispositivos de segurança viária." },
-
-  // COLABORADORES — equipamentos e insumos
-  "43134": { cat: "colab", label: "Obras de terraplenagem", context: "Movimentação de terra e preparação de terreno — etapa fundamental em obras rodoviárias." },
-  "43190": { cat: "colab", label: "Serviços de preparação do terreno", context: "Serviços preparatórios para construção de rodovias." },
-  "46630": { cat: "colab", label: "Comércio atacadista de máquinas e equipamentos", context: "Fornecimento de equipamentos pesados para obras de infraestrutura." },
-  "77320": { cat: "colab", label: "Aluguel de máquinas para construção", context: "Locação de equipamentos pesados — parceiro indireto em obras rodoviárias." },
-  "46711": { cat: "colab", label: "Comércio de combustíveis e lubrificantes", context: "Fornecimento de insumos operacionais para frotas e máquinas em obras." },
-  "20291": { cat: "colab", label: "Fabricação de explosivos", context: "Utilizado em desmonte de rocha e preparação de terreno em obras rodoviárias." },
-
-  // COLABORADORES — inovação e capacitação
-  "85503": { cat: "colab", label: "Treinamento e capacitação profissional", context: "Centros de formação de mão de obra para o setor rodoviário." },
-  "72100": { cat: "colab", label: "Pesquisa e desenvolvimento em ciências físicas", context: "P&D em novos materiais e técnicas de pavimentação — inovação no setor." },
-};
-
-function normCod(c) {
-  return String(c).replace(/\D/g,"").slice(0,5);
+// ── TABS
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  btn.classList.add('active');
 }
 
-function classifyCnae(cod) {
-  const n = normCod(cod);
-  // Busca exata primeiro
-  if (CNAES_DB[n]) return CNAES_DB[n];
-  // Busca por prefixo (4 dígitos)
-  const p4 = n.slice(0,4);
-  const found = Object.entries(CNAES_DB).find(([k]) => k.startsWith(p4));
-  if (found) return found[1];
-  return null;
-}
-
+// ── UTILS
 function formatCNPJ(v) {
   v = v.replace(/\D/g,"");
   if (v.length > 14) v = v.slice(0,14);
-  return v.replace(/^(\d{2})(\d)/,"$1.$2")
-          .replace(/^(\d{2})\.(\d{3})(\d)/,"$1.$2.$3")
-          .replace(/\.(\d{3})(\d)/,".$1/$2")
-          .replace(/(\d{4})(\d)/,"$1-$2");
+  return v.replace(/^(\d{2})(\d)/,"$1.$2").replace(/^(\d{2})\.(\d{3})(\d)/,"$1.$2.$3").replace(/\.(\d{3})(\d)/,".$1/$2").replace(/(\d{4})(\d)/,"$1-$2");
+}
+function normCod(c) { return String(c).replace(/\D/g,"").slice(0,5); }
+function isAtiva(s) { return (s||"").toLowerCase().includes("ativa"); }
+
+function showSkeleton(id) {
+  document.getElementById(id).innerHTML = `<div class="skeleton"><div class="skel" style="width:35%;margin-bottom:14px"></div><div class="skel" style="width:65%"></div><div class="skel" style="width:48%"></div><div class="skel" style="width:72%;margin-top:22px"></div><div class="skel" style="width:55%"></div><div class="skel" style="width:85%;margin-top:22px"></div></div>`;
+}
+function showError(id, msg) { document.getElementById(id).innerHTML = `<div class="error-box">⚠ ${msg}</div>`; }
+
+function buildTop(raw, d) {
+  const ativa = isAtiva(d.descricao_situacao_cadastral);
+  const cap = d.capital_social ? "R$ " + Number(d.capital_social).toLocaleString("pt-BR") : null;
+  return `<div class="result-top">
+    <div class="result-cnpj">${formatCNPJ(raw)}</div>
+    <div class="result-name">${d.razao_social}</div>
+    <div class="pills">
+      <span class="pill ${ativa?'pill-active':'pill-inactive'}">${d.descricao_situacao_cadastral||"Situação desconhecida"}</span>
+      ${d.descricao_porte?`<span class="pill pill-neutral">${d.descricao_porte}</span>`:""}
+      ${d.municipio?`<span class="pill pill-neutral">${d.municipio}${d.uf?" – "+d.uf:""}</span>`:""}
+      ${cap?`<span class="pill pill-gold">Capital ${cap}</span>`:""}
+    </div>
+  </div>`;
 }
 
-function gerarParecer(razao, cnaes, primarios, colaboradores, ativa, porte, capital, cidade, uf) {
-  const qtdPrim = primarios.length;
-  const qtdColab = colaboradores.length;
+// ══════════════════════════════════════════════════════
+// ANEOR
+// ══════════════════════════════════════════════════════
+const ANEOR_DB = {
+  "42111":{ cat:"prim",  label:"Construção de rodovias e ferrovias",             ctx:"Atividade central ANEOR — novas rodovias, duplicações, restaurações, pavimentação e drenagem." },
+  "42112":{ cat:"prim",  label:"Pintura para sinalização em pistas rodoviárias", ctx:"Sinalização horizontal em rodovias." },
+  "42120":{ cat:"prim",  label:"Obras de arte especiais",                        ctx:"Pontes, viadutos e túneis — estruturas essenciais em projetos rodoviários." },
+  "42130":{ cat:"prim",  label:"Obras de urbanização — ruas e calçadas",         ctx:"Pavimentação urbana e obras viárias municipais." },
+  "42140":{ cat:"prim",  label:"Manutenção de rodovias",                         ctx:"Conservação rotineira e periódica de rodovias." },
+  "42990":{ cat:"prim",  label:"Outras obras de engenharia civil",               ctx:"Obras especializadas de infraestrutura com potencial rodoviário." },
+  "42918":{ cat:"prim",  label:"Obras portuárias, marítimas e fluviais",         ctx:"Engenharia pesada compatível com construtoras rodoviárias." },
+  "71110":{ cat:"colab", label:"Serviços de arquitetura",                        ctx:"Projetos geométricos e traçados viários para obras rodoviárias." },
+  "71120":{ cat:"colab", label:"Serviços de engenharia",                         ctx:"Projetos estruturais, pavimentação, drenagem e estudos de tráfego." },
+  "71197":{ cat:"colab", label:"Cartografia, topografia e geodésia",             ctx:"Levantamentos necessários em projetos rodoviários." },
+  "71198":{ cat:"colab", label:"Testes e ensaios de materiais",                  ctx:"Controle tecnológico para pavimentação." },
+  "71199":{ cat:"colab", label:"Consultoria ambiental",                          ctx:"Estudos e licenciamentos exigidos em obras rodoviárias." },
+  "71200":{ cat:"colab", label:"Atividades técnicas de apoio à engenharia",      ctx:"Sondagens, ensaios geotécnicos e suporte a projetos." },
+  "74900":{ cat:"colab", label:"Consultoria e gestão",                           ctx:"Supervisão e gerenciamento de obras rodoviárias." },
+  "52214":{ cat:"colab", label:"Concessionárias de rodovias / pedágio",          ctx:"Operação e manutenção de rodovias concedidas." },
+  "33147":{ cat:"colab", label:"Manutenção de máquinas e equipamentos",          ctx:"Manutenção de frotas pesadas utilizadas em obras." },
+  "23915":{ cat:"colab", label:"Fabricação de cimento",                          ctx:"Insumo fundamental para obras rodoviárias." },
+  "23991":{ cat:"colab", label:"Fabricação de pré-moldados de concreto",         ctx:"Estruturas para pontes, viadutos e obras." },
+  "23992":{ cat:"colab", label:"Fabricação de massa asfáltica",                  ctx:"Insumo central para pavimentação — fornecedor estratégico ANEOR." },
+  "08100":{ cat:"colab", label:"Extração de pedra, areia e brita",               ctx:"Agregados essenciais para pavimentação." },
+  "43134":{ cat:"colab", label:"Obras de terraplenagem",                         ctx:"Etapa fundamental em obras rodoviárias." },
+  "43190":{ cat:"colab", label:"Serviços de preparação do terreno",              ctx:"Serviços preparatórios para construção de rodovias." },
+  "77320":{ cat:"colab", label:"Aluguel de máquinas para construção",            ctx:"Locação de equipamentos pesados para obras." },
+  "46711":{ cat:"colab", label:"Comércio de combustíveis e lubrificantes",       ctx:"Fornecimento operacional para frotas e máquinas." },
+  "85503":{ cat:"colab", label:"Treinamento e capacitação profissional",         ctx:"Formação de mão de obra para o setor rodoviário." },
+  "72100":{ cat:"colab", label:"P&D em ciências físicas",                        ctx:"Pesquisa em novos materiais e técnicas de pavimentação." },
+};
 
-  if (qtdPrim > 0) {
-    const cnaesPrim = primarios.map(c => c.cod + " — " + (classifyCnae(c.cod)?.label || c.desc)).join("; ");
-    const porteTexto = porte ? porte.toLowerCase() : "porte não informado";
-    const capitalTexto = capital ? "capital social de R$ " + Number(capital).toLocaleString("pt-BR") : null;
-    const localTexto = cidade ? cidade + (uf ? "/" + uf : "") : null;
-
-    let parecer = `CNAE${qtdPrim > 1 ? "s" : ""} ${cnaesPrim} ${qtdPrim > 1 ? "confirmam" : "confirma"} atuação direta em obras rodoviárias. `;
-    parecer += `Empresa ${ativa ? "ativa" : "com situação irregular"}${localTexto ? ", sediada em " + localTexto : ""}`;
-    if (capitalTexto) parecer += ", com " + capitalTexto;
-    parecer += `, ${porteTexto}. `;
-    parecer += `Perfil compatível com Associada Efetiva da ANEOR. ✔ Recomendado para obras rodoviárias.`;
-    return { tipo: "yes", texto: parecer };
-  }
-
-  if (qtdColab > 0) {
-    const cnaesColab = colaboradores.slice(0,2).map(c => c.cod + " — " + (classifyCnae(c.cod)?.label || c.desc)).join("; ");
-    const porteTexto = porte ? porte.toLowerCase() : "porte não informado";
-
-    let parecer = `CNAE${qtdColab > 1 ? "s" : ""} ${cnaesColab} ${qtdColab > 1 ? "indicam" : "indica"} atuação de apoio ao setor rodoviário. `;
-    parecer += `Empresa ${ativa ? "ativa" : "com situação irregular"}`;
-    if (capital) parecer += ", capital R$ " + Number(capital).toLocaleString("pt-BR");
-    parecer += `, ${porteTexto}. `;
-    parecer += `Perfil compatível com Associada Colaboradora da ANEOR (fornecedor, consultor ou prestador de serviços). ◆ Elegível para parcerias no setor rodoviário.`;
-    return { tipo: "partial", texto: parecer };
-  }
-
-  // Sem perfil
-  const atividadePrincipal = cnaes[0] ? cnaes[0].desc : "não identificada";
-  return {
-    tipo: "no",
-    texto: `Nenhum CNAE vinculado a obras rodoviárias foi identificado. Atividade principal registrada: ${atividadePrincipal}. Empresa fora do escopo de atuação da ANEOR. ✗ Não recomendado para obras rodoviárias.`
-  };
+function clsAneor(cod) {
+  const n = normCod(cod);
+  if (ANEOR_DB[n]) return ANEOR_DB[n];
+  const found = Object.entries(ANEOR_DB).find(([k]) => k.startsWith(n.slice(0,4)));
+  return found ? found[1] : null;
 }
 
-document.getElementById("cnpjInput").addEventListener("input", function(){ this.value = formatCNPJ(this.value); });
-document.getElementById("cnpjInput").addEventListener("keydown", function(e){ if(e.key==="Enter") consultar(); });
-
-function showSkeleton() {
-  document.getElementById("resultado").innerHTML = `
-    <div class="skeleton">
-      <div class="skel" style="width:35%;margin-bottom:14px"></div>
-      <div class="skel" style="width:65%"></div><div class="skel" style="width:48%"></div>
-      <div class="skel" style="width:72%;margin-top:22px"></div><div class="skel" style="width:55%"></div>
-      <div class="skel" style="width:85%;margin-top:22px"></div><div class="skel" style="width:70%"></div>
-    </div>`;
-}
-
-function showError(msg) {
-  document.getElementById("resultado").innerHTML = `<div class="error-box">⚠ ${msg}</div>`;
-}
-
-async function consultar() {
-  const raw = document.getElementById("cnpjInput").value.replace(/\D/g,"");
-  if (raw.length !== 14) { showError("CNPJ inválido. Informe os 14 dígitos."); return; }
-
-  const btn = document.getElementById("btnConsultar");
-  btn.disabled = true;
-  showSkeleton();
-
+async function consultarAneor() {
+  const raw = document.getElementById("cnpjAneor").value.replace(/\D/g,"");
+  if (raw.length !== 14) { showError("resultadoAneor","CNPJ inválido."); return; }
+  const btn = document.getElementById("btnAneor"); btn.disabled = true;
+  showSkeleton("resultadoAneor");
   try {
     const res = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${raw}`);
     if (!res.ok) throw new Error("CNPJ não encontrado na Receita Federal.");
     const d = await res.json();
-
     const cnaes = [];
     if (d.cnae_fiscal) cnaes.push({ cod: String(d.cnae_fiscal), desc: d.cnae_fiscal_descricao||"", principal: true });
     (d.cnaes_secundarios||[]).forEach(c => cnaes.push({ cod: String(c.codigo), desc: c.descricao||"", principal: false }));
 
-    const primarios   = cnaes.filter(c => { const r = classifyCnae(c.cod); return r?.cat === "prim"; });
-    const colaboradores = cnaes.filter(c => { const r = classifyCnae(c.cod); return r?.cat === "colab"; });
+    const prim  = cnaes.filter(c => clsAneor(c.cod)?.cat === "prim");
+    const colab = cnaes.filter(c => clsAneor(c.cod)?.cat === "colab");
+    const ativa = isAtiva(d.descricao_situacao_cadastral);
+    const tipo  = prim.length > 0 ? "yes" : colab.length > 0 ? "yes" : "no";
 
-    const ativa = (d.descricao_situacao_cadastral||"").toLowerCase().includes("ativa");
-    const parecer = gerarParecer(d.razao_social, cnaes, primarios, colaboradores, ativa, d.descricao_porte, d.capital_social, d.municipio, d.uf);
+    let parecer, vTitle, vSub;
+    if (prim.length > 0) {
+      const r = clsAneor(prim[0].cod);
+      parecer = `CNAE ${prim[0].cod} — ${r.label} confirma atuação direta em obras rodoviárias. Empresa ${ativa?"ativa":"com situação irregular"}${d.municipio?", "+d.municipio+(d.uf?"/"+d.uf:""):""}${d.capital_social?", capital R$ "+Number(d.capital_social).toLocaleString("pt-BR"):""}. ✔ Perfil Associada Efetiva ANEOR.`;
+      vTitle = "Associada Efetiva — ANEOR"; vSub = "Construtora com atuação direta em obras rodoviárias";
+    } else if (colab.length > 0) {
+      const r = clsAneor(colab[0].cod);
+      parecer = `CNAE ${colab[0].cod} — ${r.label} indica atuação de apoio ao setor rodoviário. ◆ Perfil Associada Colaboradora ANEOR.`;
+      vTitle = "Associada Colaboradora — ANEOR"; vSub = "Empresa de apoio, fornecimento ou serviços especializados";
+    } else {
+      parecer = `Nenhum CNAE vinculado a obras rodoviárias identificado. Atividade principal: ${cnaes[0]?.desc||"não identificada"}. ✗ Fora do escopo ANEOR.`;
+      vTitle = "Fora do escopo ANEOR"; vSub = "Atividade não relacionada a obras rodoviárias";
+    }
 
-    const vmap = {
-      yes:     { icon:"✅", label:"Tem perfil confirmado",       title:"Associada Efetiva — ANEOR",       sub:"Construtora com atuação direta em obras rodoviárias" },
-      partial: { icon:"⚡", label:"Perfil parcial identificado", title:"Associada Colaboradora — ANEOR",  sub:"Empresa de apoio, fornecimento ou serviços especializados" },
-      no:      { icon:"○",  label:"Sem perfil rodoviário",       title:"Fora do escopo ANEOR",            sub:"Atividade principal não relacionada a obras rodoviárias" }
-    };
-    const v = vmap[parecer.tipo];
-    const capitalFmt = d.capital_social ? "R$ " + Number(d.capital_social).toLocaleString("pt-BR") : null;
+    const chips = cnaes.map(c => { const r = clsAneor(c.cod); const cls = r?.cat==="prim"?"prim":r?.cat==="colab"?"colab":""; return `<span class="cnae-chip ${cls}" title="${c.desc}">${c.cod}${r?.cat==="prim"?" ★":r?.cat==="colab"?" ◆":""}</span>`; }).join("");
+    const details = cnaes.filter(c => clsAneor(c.cod)).map(c => { const r = clsAneor(c.cod); return `<div class="cnae-detail-item ${r.cat}"><div class="cdi-cod">${c.cod}</div><div><div class="cdi-desc">${r.label}${c.principal?" (principal)":""}</div><div class="cdi-context">${r.ctx}</div></div></div>`; }).join("");
 
-    // CNAEs chips
-    const cnaeChips = cnaes.map(c => {
-      const r = classifyCnae(c.cod);
-      const cls = r?.cat === "prim" ? "prim" : r?.cat === "colab" ? "colab" : "";
-      const mark = r?.cat === "prim" ? " ★" : r?.cat === "colab" ? " ◆" : "";
-      return `<span class="cnae-chip ${cls}" title="${c.desc}${c.principal?' (principal)':' (secundário)'}">${c.cod}${mark}</span>`;
-    }).join("");
-
-    // CNAEs com contexto (só os classificados)
-    const cnaeDetalhes = cnaes.filter(c => classifyCnae(c.cod)).map(c => {
-      const r = classifyCnae(c.cod);
-      const cls = r.cat;
-      return `<div class="cnae-detail-item ${cls}">
-        <div class="cdi-cod">${c.cod}</div>
-        <div class="cdi-info">
-          <div class="cdi-desc">${r.label}${c.principal ? ' <span style="opacity:.5">(principal)</span>' : ''}</div>
-          <div class="cdi-context">${r.context}</div>
-        </div>
-      </div>`;
-    }).join("");
-
-    document.getElementById("resultado").innerHTML = `
+    document.getElementById("resultadoAneor").innerHTML = `
       <div class="result-card">
-        <div class="result-top">
-          <div class="result-cnpj">${formatCNPJ(raw)}</div>
-          <div class="result-name">${d.razao_social}</div>
-          <div class="pills">
-            <span class="pill ${ativa?'pill-active':'pill-inactive'}">${d.descricao_situacao_cadastral||"Situação desconhecida"}</span>
-            ${d.descricao_porte?`<span class="pill pill-neutral">${d.descricao_porte}</span>`:""}
-            ${d.municipio?`<span class="pill pill-neutral">${d.municipio}${d.uf?" – "+d.uf:""}</span>`:""}
-            ${capitalFmt?`<span class="pill pill-gold">Capital ${capitalFmt}</span>`:""}
-          </div>
-        </div>
+        ${buildTop(raw,d)}
         <div class="result-body">
           <div class="sec-label">CNAEs cadastrados</div>
-          <div class="cnae-grid">${cnaeChips||'<span style="color:var(--text3);font-size:13px">Nenhum CNAE encontrado</span>'}</div>
+          <div class="cnae-grid">${chips||'<span style="color:var(--text3);font-size:13px">Nenhum CNAE</span>'}</div>
           <hr class="divider">
-          <div class="verdict verdict-${parecer.tipo}">
-            <div class="verdict-icon">${v.icon}</div>
-            <div>
-              <div class="verdict-label">${v.label}</div>
-              <div class="verdict-title">${v.title}</div>
-              <div class="verdict-body">${parecer.texto}</div>
-            </div>
+          <div class="verdict verdict-${tipo}">
+            <div class="verdict-icon">${tipo==="yes"?"✅":"○"}</div>
+            <div><div class="verdict-label">${tipo==="yes"?"Tem perfil confirmado":"Sem perfil rodoviário"}</div><div class="verdict-title">${vTitle}</div><div class="verdict-body">${parecer}</div></div>
           </div>
-          ${cnaeDetalhes ? `<div class="sec-label">Detalhamento dos CNAEs identificados</div><div class="cnae-detail-list">${cnaeDetalhes}</div>` : ""}
+          ${details?`<div class="sec-label">Detalhamento dos CNAEs identificados</div><div class="cnae-detail-list">${details}</div>`:""}
         </div>
       </div>`;
+  } catch(e) { showError("resultadoAneor", e.message||"Erro ao consultar."); }
+  finally { btn.disabled = false; }
+}
 
-  } catch(err) {
-    showError(err.message||"Erro ao consultar. Verifique o CNPJ e tente novamente.");
-  } finally {
-    btn.disabled = false;
-  }
+// ══════════════════════════════════════════════════════
+// ACOMAC
+// ══════════════════════════════════════════════════════
+const ACOMAC_CNAES = {
+  "47440":{ label:"Comércio varejista de materiais de construção em geral",         ctx:"Lojas de material de construção tradicionais — atividade principal ACOMAC." },
+  "47441":{ label:"Comércio varejista de ferragens e ferramentas",                  ctx:"Ferragens e ferramentas para construção civil." },
+  "47442":{ label:"Comércio varejista de madeira e artefatos",                      ctx:"Madeiras, portas, janelas e artefatos de madeira." },
+  "47443":{ label:"Comércio varejista de materiais hidráulicos, elétricos e vidros",ctx:"Materiais hidráulicos, elétricos, vidros e espelhos." },
+  "47444":{ label:"Comércio varejista de cal, areia, pedra britada e tijolos",      ctx:"Materiais básicos: cal, areia, brita, tijolos e telhas." },
+  "47445":{ label:"Comércio varejista de materiais de construção NEC",              ctx:"Gesso, pedras de cantaria e outros materiais." },
+  "47415":{ label:"Comércio varejista de tintas e materiais para pintura",          ctx:"Tintas, vernizes, solventes e materiais para pintura." },
+  "47423":{ label:"Comércio varejista de vidros",                                   ctx:"Vidros e espelhos." },
+  "47431":{ label:"Comércio varejista de vidros, espelhos, vitrais e molduras",     ctx:"Vidraçarias e comércio de molduras." },
+  "46796":{ label:"Comércio atacadista de tintas, vernizes e similares",            ctx:"Distribuição atacadista de tintas para construção." },
+  "46797":{ label:"Comércio atacadista de vidros planos e moldados",                ctx:"Distribuição atacadista de vidros para construção." },
+  "46798":{ label:"Comércio atacadista de mármores e granitos",                     ctx:"Pedras ornamentais e revestimentos." },
+  "46729":{ label:"Comércio atacadista de ferragens e ferramentas",                 ctx:"Distribuição de ferragens, parafusos e ferramentas." },
+  "46730":{ label:"Comércio atacadista de madeira e produtos derivados",            ctx:"Distribuição de madeiras e compensados." },
+  "46748":{ label:"Comércio atacadista de cimento",                                 ctx:"Distribuição de cimento para construção civil." },
+  "46711":{ label:"Comércio atacadista de produtos siderúrgicos para construção",   ctx:"Vergalhões, vigas, perfis metálicos e aço para construção." },
+};
+
+const MUNICIPIOS_BA = new Set([
+  "acajutiba","adustina","agua fria","alagoinhas","amargosa","amelia rodrigues",
+  "america dourada","andarai","anguera","antas","antonio cardoso","apora","aracas",
+  "araci","aramari","aratuipe","baixa grande","banzae","barra do mendes","barro alto",
+  "barrocas","biritinga","boa vista do tupim","boninal","bonito","brejoes",
+  "cabeceiras do paraguacu","cachoeira","cafarnaum","camacari","canarana","candeal",
+  "candeias","capela do alto alegre","cardeal da silva","castro alves","catu","central",
+  "cicero dantas","cipo","conceicao da feira","conceicao do almeida","conceicao do coite",
+  "conceicao do jacuipe","conde","coracao de maria","coronel joao sa","cravolandia",
+  "crisopolis","cruz das almas","dias davila","dom macedo costa","elisio medrado",
+  "entre rios","esplanada","fatima","feira de santana","gaviao","gentio do ouro",
+  "governador mangabeira","heliopolis","iacu","ibipeba","ibiquera","ibibita","ichu",
+  "inhambupe","ipecaeta","ipira","irajuba","iraquara","irara","irece","itaberaba",
+  "itaete","itaguacu da bahia","itanagra","itaparica","itapicuru","itatim","jaguaripe",
+  "jandaira","jiquirica","joao dourado","jussara","laje","lamarao","lapao",
+  "lauro de freitas","lencois","macajuba","madre de deus","mairi","maragogipe",
+  "marcionilio souza","mata de sao joao","milagres","mucuge","mulungu do morro",
+  "mundo novo","muniz ferreira","muritiba","nazare","nordestina","nova fatima",
+  "nova itarana","nova redencao","nova soure","novo horizonte","novo triunfo","olindina",
+  "ouricangas","palmeiras","paripiranga","pe de serra","pedrao","pintadas","piritiba",
+  "planaltino","pojuca","presidente dutra","queimadas","quijingue","rafael jambeiro",
+  "retirolandia","riachao do jacuipe","ribeira do amparo","ribeira do pombal","rio real",
+  "ruy barbosa","salinas da margarida","salvador","santa barbara","santa ines","santaluz",
+  "santa teresinha","santanopolis","santo amaro","santo antonio de jesus","santo estevao",
+  "sao domingos","sao felipe","sao felix","sao francisco do conde","sao gabriel",
+  "sao goncalo dos campos","sao miguel das matas","sao sebastiao do passe","sapeacu",
+  "satio do quinto","saubara","seabra","serra preta","serrinha","simoes filho",
+  "sitio do quinto","souto soares","tanquinho","tapiramuta","teodoro sampaio",
+  "teofilandia","terra nova","tucano","ubaira","uibai","utinga","valente",
+  "varzea da roca","varzedo","vera cruz","wagner"
+]);
+
+function normMun(m) {
+  return (m||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z\s]/g,"").trim();
+}
+
+function clsAcomac(cod) {
+  const n = normCod(cod);
+  if (ACOMAC_CNAES[n]) return ACOMAC_CNAES[n];
+  const found = Object.entries(ACOMAC_CNAES).find(([k]) => k.startsWith(n.slice(0,4)));
+  return found ? found[1] : null;
+}
+
+async function consultarAcomac() {
+  const raw = document.getElementById("cnpjAcomac").value.replace(/\D/g,"");
+  if (raw.length !== 14) { showError("resultadoAcomac","CNPJ inválido."); return; }
+  const btn = document.getElementById("btnAcomac"); btn.disabled = true;
+  showSkeleton("resultadoAcomac");
+  try {
+    const res = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${raw}`);
+    if (!res.ok) throw new Error("CNPJ não encontrado na Receita Federal.");
+    const d = await res.json();
+    const cnaes = [];
+    if (d.cnae_fiscal) cnaes.push({ cod: String(d.cnae_fiscal), desc: d.cnae_fiscal_descricao||"", principal: true });
+    (d.cnaes_secundarios||[]).forEach(c => cnaes.push({ cod: String(c.codigo), desc: c.descricao||"", principal: false }));
+
+    const ativa       = isAtiva(d.descricao_situacao_cadastral);
+    const munNorm     = normMun(d.municipio);
+    const uf          = (d.uf||"").toUpperCase();
+    const match       = cnaes.filter(c => clsAcomac(c.cod));
+    const temCnae     = match.length > 0;
+    const temMun      = MUNICIPIOS_BA.has(munNorm) && uf === "BA";
+    const temPerfil   = ativa && temCnae && temMun;
+    const tipo        = temPerfil ? "yes" : "no";
+
+    const criterios = [
+      { ok: ativa,    label:"Situação cadastral",             text: ativa ? "Empresa ativa na Receita Federal" : "Empresa com situação irregular — não elegível" },
+      { ok: temCnae,  label:"CNAE de material de construção", text: temCnae ? `${match[0].cod} — ${clsAcomac(match[0].cod)?.label}` : "Nenhum CNAE de material de construção identificado" },
+      { ok: temMun,   label:"Município — Regional Salvador/BA", text: temMun ? `${d.municipio}/BA está na área de atuação da ACOMAC Salvador` : `${d.municipio||"Município não identificado"}${uf?" / "+uf:""} fora da regional de Salvador` },
+    ];
+
+    let parecer;
+    if (temPerfil) {
+      const r = clsAcomac(match[0].cod);
+      parecer = `CNAE ${match[0].cod} — ${r.label}. Empresa ativa em ${d.municipio}/BA, dentro da regional de Salvador. ✔ Perfil completo para associação à ACOMAC Salvador.`;
+    } else {
+      const motivos = [];
+      if (!ativa) motivos.push("situação cadastral irregular");
+      if (!temCnae) motivos.push("CNAE fora do escopo de material de construção");
+      if (!temMun) motivos.push(`${d.municipio||"município não identificado"}${uf?"/"+uf:""} fora da regional de Salvador`);
+      parecer = `Empresa não atende aos critérios ACOMAC Salvador: ${motivos.join("; ")}. ✗ Sem perfil para esta regional.`;
+    }
+
+    const chips = cnaes.map(c => { const r = clsAcomac(c.cod); return `<span class="cnae-chip ${r?"prim":""}" title="${c.desc}">${c.cod}${r?" ★":""}</span>`; }).join("");
+    const criteriosHTML = criterios.map(cr => `
+      <div class="criteria-item ${cr.ok?"ok":"fail"}">
+        <div class="criteria-icon">${cr.ok?"✅":"✗"}</div>
+        <div><div class="criteria-label">${cr.label}</div><div class="criteria-text">${cr.text}</div></div>
+      </div>`).join("");
+    const details = match.map(c => { const r = clsAcomac(c.cod); return `<div class="cnae-detail-item prim"><div class="cdi-cod">${c.cod}</div><div><div class="cdi-desc">${r.label}${c.principal?" (principal)":""}</div><div class="cdi-context">${r.ctx}</div></div></div>`; }).join("");
+
+    document.getElementById("resultadoAcomac").innerHTML = `
+      <div class="result-card">
+        ${buildTop(raw,d)}
+        <div class="result-body">
+          <div class="sec-label">CNAEs cadastrados</div>
+          <div class="cnae-grid">${chips||'<span style="color:var(--text3);font-size:13px">Nenhum CNAE</span>'}</div>
+          <hr class="divider">
+          <div class="sec-label">Verificação de critérios</div>
+          <div class="criteria-list">${criteriosHTML}</div>
+          <div class="verdict verdict-${tipo}">
+            <div class="verdict-icon">${tipo==="yes"?"✅":"○"}</div>
+            <div>
+              <div class="verdict-label">${tipo==="yes"?"Perfil completo ACOMAC":"Sem perfil ACOMAC"}</div>
+              <div class="verdict-title">${tipo==="yes"?"Elegível — ACOMAC Salvador":"Não elegível — ACOMAC Salvador"}</div>
+              <div class="verdict-body">${parecer}</div>
+            </div>
+          </div>
+          ${details?`<div class="sec-label">CNAEs de material de construção identificados</div><div class="cnae-detail-list">${details}</div>`:""}
+        </div>
+      </div>`;
+  } catch(e) { showError("resultadoAcomac", e.message||"Erro ao consultar."); }
+  finally { btn.disabled = false; }
 }
 </script>
 </body>
