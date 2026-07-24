@@ -3,121 +3,132 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Consulta de Perfil — Grupo AG Capital</title>
+  <title>Consulta de Perfil — AG TaxTech</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --bg:#f5f6f8;
-      --white:#ffffff;
-      --border:#e4e7ec;
-      --gold:#b8860b;
-      --gold-lt:#f0c040;
-      --gold-bg:#fffbeb;
-      --gold-bd:#f0c040;
-      --green:#16803c;
-      --green-bg:#f0fdf4;
-      --green-bd:#86efac;
-      --red:#dc2626;
-      --red-bg:#fef2f2;
-      --red-bd:#fca5a5;
-      --blue:#1d4ed8;
-      --blue-bg:#eff6ff;
-      --blue-bd:#93c5fd;
+      --orange:#F47920;
+      --orange-lt:#FEF0E6;
+      --orange-bd:#F9BF96;
+      --blue:#1E3A5F;
+      --blue-md:#2E5FA3;
+      --blue-lt:#EEF3FA;
+      --blue-bd:#B8CDE8;
+      --bg:#F5F6F8;
+      --white:#FFFFFF;
+      --border:#E4E7EC;
+      --green:#16803C;
+      --green-bg:#F0FDF4;
+      --green-bd:#86EFAC;
+      --red:#DC2626;
+      --red-bg:#FEF2F2;
+      --red-bd:#FCA5A5;
+      --amber:#B45309;
+      --amber-bg:#FFFBEB;
+      --amber-bd:#FCD34D;
       --text:#111827;
-      --text2:#6b7280;
-      --text3:#9ca3af;
+      --text2:#4B5563;
+      --text3:#9CA3AF;
       --sans:'Inter',system-ui,sans-serif;
       --radius:12px;
-      --shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04);
-      --shadow-md:0 4px 6px -1px rgba(0,0,0,.08),0 2px 4px -1px rgba(0,0,0,.04);
+      --shadow:0 1px 3px rgba(0,0,0,.07),0 1px 2px rgba(0,0,0,.04);
+      --shadow-md:0 4px 12px rgba(0,0,0,.08);
     }
     html{font-size:16px}
     body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;display:flex;flex-direction:column}
 
     /* HEADER */
-    header{background:var(--white);border-bottom:1px solid var(--border);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;box-shadow:var(--shadow)}
-    .hbrand{display:flex;align-items:center;gap:12px}
-    .hlogo{width:36px;height:36px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;letter-spacing:-.5px}
-    .hname{font-size:14px;font-weight:700;color:var(--text)}
-    .hsub{font-size:11px;color:var(--text3);letter-spacing:.05em;text-transform:uppercase;margin-top:1px}
-    .htag{font-size:11px;color:var(--text2);background:var(--bg);border:1px solid var(--border);padding:4px 10px;border-radius:20px;font-weight:500}
+    header{background:var(--blue);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+    .hbrand{display:flex;align-items:center;gap:14px}
+    .hlogo{display:flex;align-items:center;gap:10px}
+    .hlogo-icon{width:34px;height:34px}
+    .hlogo-text{display:flex;flex-direction:column;line-height:1}
+    .hname{font-size:16px;font-weight:700;color:#fff;letter-spacing:-.3px}
+    .hsub{font-size:10px;color:var(--orange);letter-spacing:.12em;text-transform:uppercase;margin-top:2px;font-weight:600}
+    .hdivider{width:1px;height:28px;background:rgba(255,255,255,.2)}
+    .htag{font-size:11px;color:rgba(255,255,255,.6);font-weight:500}
 
     /* TABS */
-    .tabs-wrap{width:100%;background:var(--white);border-bottom:1px solid var(--border);overflow-x:auto}
-    .tabs-inner{display:flex;padding:0 2rem;min-width:max-content}
-    .tab-btn{padding:.875rem 1.25rem;font-size:13px;font-weight:500;color:var(--text2);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .15s;display:flex;align-items:center;gap:6px}
-    .tab-btn:hover{color:var(--text)}
-    .tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);font-weight:600}
+    .tabs-wrap{width:100%;background:var(--white);border-bottom:1px solid var(--border);overflow-x:auto;box-shadow:var(--shadow)}
+    .tabs-inner{display:flex;padding:0 1.5rem;min-width:max-content}
+    .tab-btn{padding:.875rem 1.1rem;font-size:13px;font-weight:500;color:var(--text2);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .15s;display:flex;align-items:center;gap:6px}
+    .tab-btn:hover{color:var(--blue)}
+    .tab-btn.active{color:var(--orange);border-bottom-color:var(--orange);font-weight:600}
     .tbadge{font-size:10px;padding:2px 7px;border-radius:20px;font-weight:500;background:var(--bg);color:var(--text3);border:1px solid var(--border)}
-    .tab-btn.active .tbadge{background:var(--gold-bg);color:var(--gold);border-color:var(--gold-bd)}
+    .tab-btn.active .tbadge{background:var(--orange-lt);color:var(--orange);border-color:var(--orange-bd)}
 
     /* PANELS */
     .tab-panel{display:none;width:100%;flex-direction:column;align-items:center}
     .tab-panel.active{display:flex}
-
     main{flex:1;display:flex;flex-direction:column;align-items:center}
 
     /* HERO */
-    .hero{width:100%;background:var(--white);border-bottom:1px solid var(--border);padding:2.5rem 2rem 2rem;text-align:center}
-    .hero-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:var(--gold-bg);border:1px solid var(--gold-bd);padding:4px 12px;border-radius:20px;margin-bottom:1rem}
-    .hero h1{font-size:clamp(1.5rem,3vw,2rem);font-weight:700;line-height:1.25;color:var(--text);margin-bottom:.5rem;max-width:520px;margin-left:auto;margin-right:auto}
-    .hero h1 em{font-style:normal;color:var(--gold)}
-    .hero p{font-size:14px;color:var(--text2);line-height:1.6;max-width:420px;margin:0 auto}
+    .hero{width:100%;background:var(--blue);padding:2.5rem 2rem 2.25rem;text-align:center;position:relative;overflow:hidden}
+    .hero::after{content:'';position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);width:300px;height:80px;background:var(--orange);opacity:.08;border-radius:50%}
+    .hero-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);background:rgba(244,121,32,.12);border:1px solid rgba(244,121,32,.3);padding:4px 12px;border-radius:20px;margin-bottom:1rem}
+    .hero h1{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:700;line-height:1.25;color:#fff;margin-bottom:.5rem;max-width:520px;margin-left:auto;margin-right:auto}
+    .hero h1 em{font-style:normal;color:var(--orange)}
+    .hero p{font-size:14px;color:rgba(255,255,255,.65);line-height:1.6;max-width:400px;margin:0 auto}
 
     /* FORM */
-    .form-area{width:100%;max-width:600px;padding:2rem 1.5rem 1rem}
+    .form-area{width:100%;max-width:580px;padding:1.75rem 1.5rem 1rem}
     .form-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow)}
-    .form-label{font-size:12px;font-weight:600;color:var(--text2);letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:8px}
+    .form-label{font-size:11px;font-weight:600;color:var(--text2);letter-spacing:.07em;text-transform:uppercase;display:block;margin-bottom:8px}
     .form-row{display:flex;gap:8px}
-    .cnpj-input{flex:1;height:44px;border:1.5px solid var(--border);border-radius:8px;padding:0 14px;font-size:15px;font-family:'Courier New',monospace;letter-spacing:.06em;color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
-    .cnpj-input:focus{border-color:var(--gold);background:var(--white)}
+    .cnpj-input{flex:1;height:44px;border:1.5px solid var(--border);border-radius:8px;padding:0 14px;font-size:15px;font-family:'Courier New',monospace;letter-spacing:.06em;color:var(--text);background:var(--bg);outline:none;transition:border-color .15s,background .15s}
+    .cnpj-input:focus{border-color:var(--orange);background:var(--white)}
     .cnpj-input::placeholder{font-family:var(--sans);letter-spacing:0;color:var(--text3)}
-    .btn{height:44px;padding:0 1.25rem;background:var(--gold);color:#fff;font-size:13px;font-weight:600;border:none;border-radius:8px;cursor:pointer;white-space:nowrap;transition:opacity .15s,transform .1s}
+    .btn{height:44px;padding:0 1.25rem;background:var(--orange);color:#fff;font-size:13px;font-weight:600;border:none;border-radius:8px;cursor:pointer;white-space:nowrap;transition:opacity .15s,transform .1s;letter-spacing:.02em}
     .btn:hover{opacity:.88}
     .btn:active{transform:scale(.98)}
     .btn:disabled{opacity:.4;cursor:not-allowed}
 
-    /* RESULTADO */
-    .result-area{width:100%;max-width:600px;padding:0 1.5rem 2rem}
+    /* RESULT */
+    .result-area{width:100%;max-width:580px;padding:0 1.5rem 2rem}
     .skeleton{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow)}
     .skel{height:10px;border-radius:4px;background:var(--bg);margin-bottom:10px;animation:pulse 1.4s ease infinite}
     @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
 
     /* RESULT CARD */
     .rcard{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md)}
-    .rtop{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);background:var(--bg)}
-    .rcnpj{font-size:11px;font-family:'Courier New',monospace;color:var(--text3);letter-spacing:.1em;margin-bottom:4px}
-    .rname{font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px;line-height:1.3}
+    .rtop{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);background:linear-gradient(135deg,var(--blue) 0%,var(--blue-md) 100%)}
+    .rcnpj{font-size:10px;font-family:'Courier New',monospace;color:rgba(255,255,255,.5);letter-spacing:.12em;margin-bottom:4px}
+    .rname{font-size:17px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.3}
     .pills{display:flex;flex-wrap:wrap;gap:6px}
     .pill{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;border:1px solid}
-    .pill-ok{background:var(--green-bg);color:var(--green);border-color:var(--green-bd)}
-    .pill-err{background:var(--red-bg);color:var(--red);border-color:var(--red-bd)}
-    .pill-neu{background:var(--bg);color:var(--text2);border-color:var(--border)}
-    .pill-gold{background:var(--gold-bg);color:var(--gold);border-color:var(--gold-bd)}
+    .pill-ok{background:rgba(22,128,60,.2);color:#86efac;border-color:rgba(134,239,172,.3)}
+    .pill-err{background:rgba(220,38,38,.2);color:#fca5a5;border-color:rgba(252,165,165,.3)}
+    .pill-neu{background:rgba(255,255,255,.1);color:rgba(255,255,255,.65);border-color:rgba(255,255,255,.2)}
+    .pill-org{background:rgba(244,121,32,.2);color:var(--orange);border-color:rgba(244,121,32,.4)}
     .rbody{padding:1.25rem 1.5rem}
-    .slabel{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+    .slabel{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
 
-    /* CNAE CHIPS */
+    /* CHIPS */
     .cnae-grid{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:1.25rem}
     .chip{font-family:'Courier New',monospace;font-size:11px;padding:3px 8px;border-radius:5px;border:1px solid var(--border);background:var(--bg);color:var(--text2);cursor:default}
     .chip.prim{background:var(--green-bg);color:var(--green);border-color:var(--green-bd);font-weight:600}
-    .chip.colab{background:var(--gold-bg);color:var(--gold);border-color:var(--gold-bd)}
+    .chip.colab{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-bd)}
 
     /* VERDICT */
     .verdict{border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.25rem;border:1px solid;display:flex;align-items:flex-start;gap:12px}
     .verdict.yes{background:var(--green-bg);border-color:var(--green-bd)}
+    .verdict.partial{background:var(--amber-bg);border-color:var(--amber-bd)}
     .verdict.no{background:var(--red-bg);border-color:var(--red-bd)}
-    .vicon{font-size:20px;flex-shrink:0;line-height:1}
+    .vicon{font-size:20px;flex-shrink:0;line-height:1.2}
     .vtag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
-    .verdict.yes .vtag{color:var(--green)}
-    .verdict.no  .vtag{color:var(--red)}
-    .vtitle{font-size:15px;font-weight:700;margin-bottom:3px}
-    .verdict.yes .vtitle{color:var(--green)}
-    .verdict.no  .vtitle{color:var(--red)}
-    .vbody{font-size:13px;line-height:1.6}
-    .verdict.yes .vbody{color:#166534}
-    .verdict.no  .vbody{color:#991b1b}
+    .verdict.yes     .vtag{color:var(--green)}
+    .verdict.partial .vtag{color:var(--amber)}
+    .verdict.no      .vtag{color:var(--red)}
+    .vtitle{font-size:15px;font-weight:700;margin-bottom:4px}
+    .verdict.yes     .vtitle{color:var(--green)}
+    .verdict.partial .vtitle{color:var(--amber)}
+    .verdict.no      .vtitle{color:var(--red)}
+    .vbody{font-size:13px;line-height:1.65}
+    .verdict.yes     .vbody{color:#166534}
+    .verdict.partial .vbody{color:#92400e}
+    .verdict.no      .vbody{color:#991b1b}
+    .valert{margin-top:8px;padding:7px 10px;background:rgba(180,83,9,.08);border-radius:6px;font-size:12px;color:var(--amber);font-weight:500;border-left:3px solid var(--amber)}
 
     /* CRITERIA */
     .clist{display:flex;flex-direction:column;gap:6px;margin-bottom:1.25rem}
@@ -136,44 +147,44 @@
     .dlist{display:flex;flex-direction:column;gap:6px}
     .ditem{border-radius:8px;padding:.75rem 1rem;border:1px solid;display:flex;gap:10px;align-items:flex-start}
     .ditem.prim{background:var(--green-bg);border-color:var(--green-bd)}
-    .ditem.colab{background:var(--gold-bg);border-color:var(--gold-bd)}
-    .dcod{font-family:'Courier New',monospace;font-size:11px;font-weight:600;flex-shrink:0;margin-top:2px}
+    .ditem.colab{background:var(--amber-bg);border-color:var(--amber-bd)}
+    .dcod{font-family:'Courier New',monospace;font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px}
     .ditem.prim  .dcod{color:var(--green)}
-    .ditem.colab .dcod{color:var(--gold)}
+    .ditem.colab .dcod{color:var(--amber)}
     .ddesc{font-size:12px;font-weight:600;margin-bottom:2px}
     .ditem.prim  .ddesc{color:var(--green)}
-    .ditem.colab .ddesc{color:var(--gold)}
+    .ditem.colab .ddesc{color:var(--amber)}
     .dctx{font-size:11px;color:var(--text2)}
 
-    /* GERAL CARDS */
+    /* GERAL */
     .geral-grid{display:flex;flex-direction:column;gap:8px}
-    .gcard{border-radius:10px;border:1px solid;padding:1rem 1.25rem;display:flex;align-items:center;gap:12px}
+    .gcard{border-radius:10px;border:1px solid;padding:.875rem 1.1rem;display:flex;align-items:center;gap:12px;transition:box-shadow .15s}
     .gcard.yes{background:var(--green-bg);border-color:var(--green-bd)}
+    .gcard.partial{background:var(--amber-bg);border-color:var(--amber-bd)}
     .gcard.no{background:var(--bg);border-color:var(--border)}
-    .gcard-icon{font-size:22px;flex-shrink:0}
-    .gcard-name{font-size:14px;font-weight:700}
-    .gcard.yes .gcard-name{color:var(--green)}
-    .gcard.no  .gcard-name{color:var(--text3)}
+    .gcard-icon{font-size:20px;flex-shrink:0}
+    .gcard-body{flex:1}
+    .gcard-name{font-size:13px;font-weight:700}
+    .gcard.yes     .gcard-name{color:var(--green)}
+    .gcard.partial .gcard-name{color:var(--amber)}
+    .gcard.no      .gcard-name{color:var(--text3)}
     .gcard-desc{font-size:12px;margin-top:2px}
-    .gcard.yes .gcard-desc{color:#166534}
-    .gcard.no  .gcard-desc{color:var(--text3)}
+    .gcard.yes     .gcard-desc{color:#166534}
+    .gcard.partial .gcard-desc{color:#92400e}
+    .gcard.no      .gcard-desc{color:var(--text3)}
 
     .divider{border:none;border-top:1px solid var(--border);margin:1rem 0}
     .error-box{background:var(--red-bg);border:1px solid var(--red-bd);border-radius:8px;padding:.875rem 1rem;color:var(--red);font-size:13px;font-weight:500}
-    .legend{max-width:600px;width:100%;padding:0 1.5rem 1.5rem;display:flex;gap:1rem;flex-wrap:wrap}
-    .legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text3)}
-    .ldot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
 
     footer{border-top:1px solid var(--border);background:var(--white);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
-    .fname{font-size:13px;font-weight:700;color:var(--text)}
+    .fname{font-size:12px;font-weight:700;color:var(--blue)}
     .fnote{font-size:11px;color:var(--text3)}
     .fnote a{color:var(--text2);text-decoration:none}
 
     @media(max-width:540px){
       .form-row{flex-direction:column}
       header{padding:0 1rem}
-      .htag{display:none}
-      footer .fname{display:none}
+      .htag,.hdivider{display:none}
     }
   </style>
 </head>
@@ -181,13 +192,22 @@
 
 <header>
   <div class="hbrand">
-    <div class="hlogo">AG</div>
-    <div>
-      <div class="hname">Grupo AG Capital</div>
-      <div class="hsub">Inteligência de Negócios</div>
+    <div class="hlogo">
+      <!-- SVG do símbolo AG TaxTech (curva laranja) -->
+      <svg class="hlogo-icon" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="34" height="34" rx="6" fill="rgba(255,255,255,0.08)"/>
+        <path d="M10 22 Q10 10 17 10 Q24 10 24 17 Q24 22 20 23 Q18 24 18 27" stroke="#F47920" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+        <circle cx="10" cy="25" r="2.2" fill="#F47920"/>
+        <circle cx="18" cy="27" r="2.2" fill="#F47920"/>
+      </svg>
+      <div class="hlogo-text">
+        <span class="hname">AG TaxTech</span>
+        <span class="hsub">Novos Negócios</span>
+      </div>
     </div>
+    <div class="hdivider"></div>
+    <span class="htag">Consulta de Perfil Associativo</span>
   </div>
-  <div class="htag">Consulta de Perfil</div>
 </header>
 
 <main>
@@ -207,17 +227,15 @@
     <div class="hero">
       <div class="hero-tag">✦ Consulta Geral</div>
       <h1>Em quais associações a empresa <em>tem perfil?</em></h1>
-      <p>Consulta única que verifica todas as associações simultaneamente.</p>
+      <p>Uma consulta verifica todas as associações simultaneamente.</p>
     </div>
-    <div class="form-area">
-      <div class="form-card">
-        <label class="form-label" for="cnpjGeral">CNPJ da empresa</label>
-        <div class="form-row">
-          <input type="text" id="cnpjGeral" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarGeral()"/>
-          <button class="btn" id="btnGeral" onclick="consultarGeral()">Consultar Todas</button>
-        </div>
+    <div class="form-area"><div class="form-card">
+      <label class="form-label" for="cnpjGeral">CNPJ da empresa</label>
+      <div class="form-row">
+        <input type="text" id="cnpjGeral" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarGeral()"/>
+        <button class="btn" id="btnGeral" onclick="consultarGeral()">Consultar Todas</button>
       </div>
-    </div>
+    </div></div>
     <div class="result-area"><div id="resultadoGeral"></div></div>
   </div>
 
@@ -226,41 +244,32 @@
     <div class="hero">
       <div class="hero-tag">ANEOR</div>
       <h1>A empresa tem perfil para <em>obras rodoviárias?</em></h1>
-      <p>Analisa CNAEs com base nos critérios oficiais da ANEOR.</p>
+      <p>Analisa CNAEs com base nos critérios da ANEOR. CNAEs secundários indicam perfil parcial.</p>
     </div>
-    <div class="form-area">
-      <div class="form-card">
-        <label class="form-label" for="cnpjAneor">CNPJ da empresa</label>
-        <div class="form-row">
-          <input type="text" id="cnpjAneor" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarAneor()"/>
-          <button class="btn" id="btnAneor" onclick="consultarAneor()">Consultar</button>
-        </div>
+    <div class="form-area"><div class="form-card">
+      <label class="form-label" for="cnpjAneor">CNPJ da empresa</label>
+      <div class="form-row">
+        <input type="text" id="cnpjAneor" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarAneor()"/>
+        <button class="btn" id="btnAneor" onclick="consultarAneor()">Consultar</button>
       </div>
-    </div>
+    </div></div>
     <div class="result-area"><div id="resultadoAneor"></div></div>
-    <div class="legend">
-      <div class="legend-item"><div class="ldot" style="background:var(--green)"></div>CNAE rodoviário primário</div>
-      <div class="legend-item"><div class="ldot" style="background:var(--gold)"></div>CNAE colaborador</div>
-      <div class="legend-item"><div class="ldot" style="background:var(--border)"></div>Sem relação</div>
-    </div>
   </div>
 
   <!-- ACOMAC -->
   <div class="tab-panel" id="panel-acomac">
     <div class="hero">
       <div class="hero-tag">ACOMAC</div>
-      <h1>A empresa tem perfil para a <em>ACOMAC Salvador?</em></h1>
-      <p>Verifica CNAE de material de construção e município da regional de Salvador/BA.</p>
+      <h1>A empresa tem perfil para a <em>ACOMAC Bahia?</em></h1>
+      <p>Verifica CNAE de material de construção e sede no estado da Bahia.</p>
     </div>
-    <div class="form-area">
-      <div class="form-card">
-        <label class="form-label" for="cnpjAcomac">CNPJ da empresa</label>
-        <div class="form-row">
-          <input type="text" id="cnpjAcomac" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarAcomac()"/>
-          <button class="btn" id="btnAcomac" onclick="consultarAcomac()">Consultar</button>
-        </div>
+    <div class="form-area"><div class="form-card">
+      <label class="form-label" for="cnpjAcomac">CNPJ da empresa</label>
+      <div class="form-row">
+        <input type="text" id="cnpjAcomac" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarAcomac()"/>
+        <button class="btn" id="btnAcomac" onclick="consultarAcomac()">Consultar</button>
       </div>
-    </div>
+    </div></div>
     <div class="result-area"><div id="resultadoAcomac"></div></div>
   </div>
 
@@ -271,15 +280,13 @@
       <h1>A empresa tem perfil para a <em>ACIA?</em></h1>
       <p>Verifica se a empresa está ativa em São Paulo, Minas Gerais ou Rio de Janeiro.</p>
     </div>
-    <div class="form-area">
-      <div class="form-card">
-        <label class="form-label" for="cnpjAcia">CNPJ da empresa</label>
-        <div class="form-row">
-          <input type="text" id="cnpjAcia" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarUF('acia')"/>
-          <button class="btn" id="btnAcia" onclick="consultarUF('acia')">Consultar</button>
-        </div>
+    <div class="form-area"><div class="form-card">
+      <label class="form-label" for="cnpjAcia">CNPJ da empresa</label>
+      <div class="form-row">
+        <input type="text" id="cnpjAcia" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarUF('acia')"/>
+        <button class="btn" id="btnAcia" onclick="consultarUF('acia')">Consultar</button>
       </div>
-    </div>
+    </div></div>
     <div class="result-area"><div id="resultadoAcia"></div></div>
   </div>
 
@@ -290,15 +297,13 @@
       <h1>A empresa tem perfil para a <em>ACP?</em></h1>
       <p>Verifica se a empresa está ativa em PE, AL, PB, BA, PI ou CE.</p>
     </div>
-    <div class="form-area">
-      <div class="form-card">
-        <label class="form-label" for="cnpjAcp">CNPJ da empresa</label>
-        <div class="form-row">
-          <input type="text" id="cnpjAcp" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarUF('acp')"/>
-          <button class="btn" id="btnAcp" onclick="consultarUF('acp')">Consultar</button>
-        </div>
+    <div class="form-area"><div class="form-card">
+      <label class="form-label" for="cnpjAcp">CNPJ da empresa</label>
+      <div class="form-row">
+        <input type="text" id="cnpjAcp" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarUF('acp')"/>
+        <button class="btn" id="btnAcp" onclick="consultarUF('acp')">Consultar</button>
       </div>
-    </div>
+    </div></div>
     <div class="result-area"><div id="resultadoAcp"></div></div>
   </div>
 
@@ -309,23 +314,20 @@
       <h1>A empresa tem perfil para a <em>CIESP?</em></h1>
       <p>Verifica CNAE industrial (divisões 10–33) e sede em São Paulo.</p>
     </div>
-    <div class="form-area">
-      <div class="form-card">
-        <label class="form-label" for="cnpjCiesp">CNPJ da empresa</label>
-        <div class="form-row">
-          <input type="text" id="cnpjCiesp" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarCiesp()"/>
-          <button class="btn" id="btnCiesp" onclick="consultarCiesp()">Consultar</button>
-        </div>
+    <div class="form-area"><div class="form-card">
+      <label class="form-label" for="cnpjCiesp">CNPJ da empresa</label>
+      <div class="form-row">
+        <input type="text" id="cnpjCiesp" class="cnpj-input" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" oninput="this.value=formatCNPJ(this.value)" onkeydown="if(event.key==='Enter')consultarCiesp()"/>
+        <button class="btn" id="btnCiesp" onclick="consultarCiesp()">Consultar</button>
       </div>
-    </div>
+    </div></div>
     <div class="result-area"><div id="resultadoCiesp"></div></div>
   </div>
-
 </main>
 
 <footer>
-  <div class="fname">Grupo AG Capital</div>
-  <div class="fnote">Dados via <a href="https://brasilapi.com.br" target="_blank">BrasilAPI</a> · Receita Federal · 100% gratuito</div>
+  <div class="fname">AG TaxTech — Inteligência de Novos Negócios</div>
+  <div class="fnote">Dados via <a href="https://brasilapi.com.br" target="_blank">BrasilAPI</a> · Receita Federal · Uso interno</div>
 </footer>
 
 <script>
@@ -361,7 +363,19 @@ function buildTop(raw,d){
       <span class="pill ${a?'pill-ok':'pill-err'}">${d.descricao_situacao_cadastral||"Situação desconhecida"}</span>
       ${d.descricao_porte?`<span class="pill pill-neu">${d.descricao_porte}</span>`:""}
       ${d.municipio?`<span class="pill pill-neu">${d.municipio}${d.uf?" – "+d.uf:""}</span>`:""}
-      ${cap?`<span class="pill pill-gold">Capital ${cap}</span>`:""}
+      ${cap?`<span class="pill pill-org">Capital ${cap}</span>`:""}
+    </div>
+  </div>`;
+}
+
+function buildVerdict(tipo,tag,title,body,alert){
+  return `<div class="verdict ${tipo}">
+    <div class="vicon">${tipo==='yes'?'✅':tipo==='partial'?'⚠️':'○'}</div>
+    <div style="flex:1">
+      <div class="vtag">${tag}</div>
+      <div class="vtitle">${title}</div>
+      <div class="vbody">${body}</div>
+      ${alert?`<div class="valert">⚡ ${alert}</div>`:""}
     </div>
   </div>`;
 }
@@ -370,42 +384,53 @@ function buildCriteria(list){
   return list.map(c=>`<div class="citem ${c.ok?'ok':'fail'}"><div class="cicon">${c.ok?'✅':'✗'}</div><div><div class="clabel">${c.label}</div><div class="ctext">${c.text}</div></div></div>`).join("");
 }
 
-function buildVerdict(tipo,tag,title,body){
-  return `<div class="verdict ${tipo}"><div class="vicon">${tipo==='yes'?'✅':'○'}</div><div><div class="vtag">${tag}</div><div class="vtitle">${title}</div><div class="vbody">${body}</div></div></div>`;
-}
-
-// ══════════════════════════════
-// ANEOR
-// ══════════════════════════════
-const ANEOR_DB={
-  "42111":{cat:"prim",label:"Construção de rodovias e ferrovias",ctx:"Atividade central ANEOR — novas rodovias, duplicações, restaurações, pavimentação e drenagem."},
-  "42112":{cat:"prim",label:"Pintura para sinalização em pistas rodoviárias",ctx:"Sinalização horizontal em rodovias."},
-  "42120":{cat:"prim",label:"Obras de arte especiais",ctx:"Pontes, viadutos e túneis — estruturas essenciais em projetos rodoviários."},
-  "42130":{cat:"prim",label:"Obras de urbanização — ruas e calçadas",ctx:"Pavimentação urbana e obras viárias municipais."},
-  "42140":{cat:"prim",label:"Manutenção de rodovias",ctx:"Conservação rotineira e periódica de rodovias."},
-  "42990":{cat:"prim",label:"Outras obras de engenharia civil",ctx:"Obras especializadas de infraestrutura."},
-  "42918":{cat:"prim",label:"Obras portuárias, marítimas e fluviais",ctx:"Engenharia pesada compatível com construtoras rodoviárias."},
-  "71110":{cat:"colab",label:"Serviços de arquitetura",ctx:"Projetos geométricos e traçados viários."},
-  "71120":{cat:"colab",label:"Serviços de engenharia",ctx:"Projetos estruturais, pavimentação, drenagem e estudos de tráfego."},
-  "71197":{cat:"colab",label:"Cartografia, topografia e geodésia",ctx:"Levantamentos necessários em projetos rodoviários."},
-  "71198":{cat:"colab",label:"Testes e ensaios de materiais",ctx:"Controle tecnológico para pavimentação."},
-  "71199":{cat:"colab",label:"Consultoria ambiental",ctx:"Estudos e licenciamentos exigidos em obras rodoviárias."},
-  "71200":{cat:"colab",label:"Atividades técnicas de apoio à engenharia",ctx:"Sondagens, ensaios geotécnicos e suporte a projetos."},
-  "74900":{cat:"colab",label:"Consultoria e gestão",ctx:"Supervisão e gerenciamento de obras rodoviárias."},
-  "52214":{cat:"colab",label:"Concessionárias de rodovias / pedágio",ctx:"Operação e manutenção de rodovias concedidas."},
-  "33147":{cat:"colab",label:"Manutenção de máquinas e equipamentos",ctx:"Manutenção de frotas pesadas utilizadas em obras."},
-  "23915":{cat:"colab",label:"Fabricação de cimento",ctx:"Insumo fundamental para obras rodoviárias."},
-  "23991":{cat:"colab",label:"Fabricação de pré-moldados de concreto",ctx:"Estruturas para pontes, viadutos e obras."},
-  "23992":{cat:"colab",label:"Fabricação de massa asfáltica",ctx:"Insumo central para pavimentação."},
-  "08100":{cat:"colab",label:"Extração de pedra, areia e brita",ctx:"Agregados essenciais para pavimentação."},
-  "43134":{cat:"colab",label:"Obras de terraplenagem",ctx:"Etapa fundamental em obras rodoviárias."},
-  "43190":{cat:"colab",label:"Serviços de preparação do terreno",ctx:"Serviços preparatórios para construção de rodovias."},
-  "77320":{cat:"colab",label:"Aluguel de máquinas para construção",ctx:"Locação de equipamentos pesados para obras."},
-  "46711":{cat:"colab",label:"Comércio de combustíveis e lubrificantes",ctx:"Fornecimento operacional para frotas e máquinas."},
-  "85503":{cat:"colab",label:"Treinamento e capacitação profissional",ctx:"Formação de mão de obra para o setor rodoviário."},
-  "72100":{cat:"colab",label:"P&D em ciências físicas",ctx:"Pesquisa em novos materiais e técnicas de pavimentação."},
+// ══════════════════════════════════════════════════════
+// ANEOR — primários = oportunidade direta, colaboradores = parcial
+// CNAEs primários (passados pelo usuário): 4211-1/xx, 4212-0, 4213-8, 4299-5
+// CNAEs colaboradores: todos os demais de suporte/fornecimento
+// ══════════════════════════════════════════════════════
+const ANEOR_PRIM={
+  "42111":{label:"Construção de rodovias e ferrovias",ctx:"Construtora de rodovias — atividade central da ANEOR."},
+  "42112":{label:"Pintura para sinalização rodoviária",ctx:"Sinalização horizontal em pistas — executora direta de serviços rodoviários."},
+  "42113":{label:"Obras de arte especiais — pontes e viadutos",ctx:"Pontes, viadutos e túneis — obras de engenharia rodoviária de alta complexidade."},
+  "42114":{label:"Manutenção de rodovias",ctx:"Conservação e manutenção periódica de rodovias — execução direta."},
+  "42120":{label:"Obras de arte especiais",ctx:"Estruturas especiais em projetos rodoviários — Associada Efetiva ANEOR."},
+  "42130":{label:"Obras de urbanização — vias",ctx:"Pavimentação e obras viárias urbanas — perfil construtora rodoviária."},
+  "42990":{label:"Outras obras de engenharia civil",ctx:"Obras de infraestrutura viária não classificadas anteriormente."},
+  "42995":{label:"Outras obras de engenharia civil NEC",ctx:"Obras especializadas com perfil de construtora rodoviária."},
 };
-function clsAneor(cod){const n=normCod(cod);if(ANEOR_DB[n])return ANEOR_DB[n];const f=Object.entries(ANEOR_DB).find(([k])=>k.startsWith(n.slice(0,4)));return f?f[1]:null;}
+const ANEOR_COLAB={
+  "71110":{label:"Serviços de arquitetura",ctx:"Projetos geométricos e traçados viários — apoio técnico a obras rodoviárias."},
+  "71120":{label:"Serviços de engenharia",ctx:"Projetos estruturais, pavimentação, drenagem — consultoria para obras rodoviárias."},
+  "71197":{label:"Cartografia, topografia e geodésia",ctx:"Levantamentos topográficos necessários em projetos rodoviários."},
+  "71198":{label:"Testes e ensaios de materiais",ctx:"Laboratórios de controle tecnológico para pavimentação."},
+  "71199":{label:"Consultoria ambiental",ctx:"Estudos e licenciamentos exigidos em obras rodoviárias."},
+  "71200":{label:"Atividades técnicas de apoio à engenharia",ctx:"Sondagens, ensaios geotécnicos e suporte a projetos."},
+  "74900":{label:"Consultoria e gestão",ctx:"Supervisão e gerenciamento de obras rodoviárias."},
+  "52214":{label:"Concessionárias de rodovias / pedágio",ctx:"Operação e manutenção de rodovias concedidas."},
+  "33147":{label:"Manutenção de máquinas e equipamentos",ctx:"Manutenção de frotas pesadas utilizadas em obras."},
+  "23915":{label:"Fabricação de cimento",ctx:"Insumo fundamental para obras rodoviárias."},
+  "23991":{label:"Fabricação de pré-moldados de concreto",ctx:"Estruturas para pontes, viadutos e obras."},
+  "23992":{label:"Fabricação de massa asfáltica",ctx:"Insumo central para pavimentação."},
+  "08100":{label:"Extração de pedra, areia e brita",ctx:"Agregados essenciais para pavimentação."},
+  "43134":{label:"Obras de terraplenagem",ctx:"Etapa fundamental em obras rodoviárias."},
+  "43190":{label:"Serviços de preparação do terreno",ctx:"Serviços preparatórios para construção de rodovias."},
+  "77320":{label:"Aluguel de máquinas para construção",ctx:"Locação de equipamentos pesados para obras."},
+  "46711":{label:"Comércio de combustíveis e lubrificantes",ctx:"Fornecimento operacional para frotas e máquinas."},
+  "85503":{label:"Treinamento e capacitação profissional",ctx:"Formação de mão de obra para o setor rodoviário."},
+  "72100":{label:"P&D em ciências físicas",ctx:"Pesquisa em novos materiais e técnicas de pavimentação."},
+};
+
+function clsAneor(cod){
+  const n=normCod(cod);
+  if(ANEOR_PRIM[n]) return {cat:"prim",...ANEOR_PRIM[n]};
+  const fp=Object.entries(ANEOR_PRIM).find(([k])=>k.startsWith(n.slice(0,4)));
+  if(fp) return {cat:"prim",...fp[1]};
+  if(ANEOR_COLAB[n]) return {cat:"colab",...ANEOR_COLAB[n]};
+  const fc=Object.entries(ANEOR_COLAB).find(([k])=>k.startsWith(n.slice(0,4)));
+  if(fc) return {cat:"colab",...fc[1]};
+  return null;
+}
 
 async function consultarAneor(){
   const raw=document.getElementById("cnpjAneor").value.replace(/\D/g,"");
@@ -419,30 +444,54 @@ async function consultarAneor(){
     const cnaes=[];
     if(d.cnae_fiscal)cnaes.push({cod:String(d.cnae_fiscal),desc:d.cnae_fiscal_descricao||"",principal:true});
     (d.cnaes_secundarios||[]).forEach(c=>cnaes.push({cod:String(c.codigo),desc:c.descricao||"",principal:false}));
+
     const prim=cnaes.filter(c=>clsAneor(c.cod)?.cat==="prim");
     const colab=cnaes.filter(c=>clsAneor(c.cod)?.cat==="colab");
     const ativa=isAtiva(d.descricao_situacao_cadastral);
-    let tipo,vtag,vtitle,vbody;
+
+    let tipo,vtag,vtitle,vbody,valert=null;
     if(prim.length>0){
-      tipo="yes";vtag="Tem perfil confirmado";vtitle="Associada Efetiva — ANEOR";
-      vbody=`CNAE ${prim[0].cod} — ${clsAneor(prim[0].cod).label}. Empresa ${ativa?"ativa":"irregular"}${d.municipio?", "+d.municipio+(d.uf?"/"+d.uf:""):""}. ✔ Perfil Associada Efetiva ANEOR.`;
-    }else if(colab.length>0){
-      tipo="yes";vtag="Perfil colaborador";vtitle="Associada Colaboradora — ANEOR";
-      vbody=`CNAE ${colab[0].cod} — ${clsAneor(colab[0].cod).label}. ◆ Perfil Associada Colaboradora ANEOR.`;
-    }else{
-      tipo="no";vtag="Sem perfil";vtitle="Fora do escopo ANEOR";
-      vbody=`Nenhum CNAE rodoviário identificado. Atividade: ${cnaes[0]?.desc||"não identificada"}.`;
+      tipo="yes";vtag="Oportunidade identificada";vtitle="Associada Efetiva — ANEOR";
+      const r=clsAneor(prim[0].cod);
+      vbody=`CNAE ${prim[0].cod} — ${r.label}. Empresa ${ativa?"ativa":"com situação irregular"}${d.municipio?", "+d.municipio+(d.uf?"/"+d.uf:""):""}${d.capital_social?", capital R$ "+Number(d.capital_social).toLocaleString("pt-BR"):""}. Perfil de construtora rodoviária confirmado.`;
+    } else if(colab.length>0){
+      tipo="partial";vtag="Perfil parcial — validar com time";vtitle="Possível Associada Colaboradora — ANEOR";
+      const r=clsAneor(colab[0].cod);
+      vbody=`CNAE ${colab[0].cod} — ${r.label}. A empresa atua em atividade de apoio ao setor rodoviário (fornecedor, consultor ou prestador de serviços), mas não executa obras diretamente.`;
+      valert="Este perfil é secundário e requer validação. Por favor, encaminhe ao time de Novos Negócios antes de prosseguir.";
+    } else {
+      tipo="no";vtag="Sem perfil rodoviário";vtitle="Fora do escopo ANEOR";
+      vbody=`Nenhum CNAE vinculado a obras rodoviárias identificado. Atividade principal: ${cnaes[0]?.desc||"não identificada"}.`;
     }
-    const chips=cnaes.map(c=>{const r=clsAneor(c.cod);const cls=r?.cat==="prim"?"prim":r?.cat==="colab"?"colab":"";return`<span class="chip ${cls}" title="${c.desc}">${c.cod}${r?.cat==="prim"?" ★":r?.cat==="colab"?" ◆":""}</span>`;}).join("");
-    const details=cnaes.filter(c=>clsAneor(c.cod)).map(c=>{const r=clsAneor(c.cod);return`<div class="ditem ${r.cat}"><div class="dcod">${c.cod}</div><div><div class="ddesc">${r.label}${c.principal?" (principal)":""}</div><div class="dctx">${r.ctx}</div></div></div>`;}).join("");
-    document.getElementById("resultadoAneor").innerHTML=`<div class="rcard">${buildTop(raw,d)}<div class="rbody"><div class="slabel">CNAEs cadastrados</div><div class="cnae-grid">${chips||'<span style="color:var(--text3);font-size:13px">Nenhum CNAE</span>'}</div><hr class="divider">${buildVerdict(tipo,vtag,vtitle,vbody)}${details?`<div class="slabel" style="margin-top:1rem">CNAEs identificados</div><div class="dlist">${details}</div>`:""}</div></div>`;
+
+    const chips=cnaes.map(c=>{
+      const r=clsAneor(c.cod);
+      const cls=r?.cat==="prim"?"prim":r?.cat==="colab"?"colab":"";
+      return`<span class="chip ${cls}" title="${c.desc}${c.principal?' (principal)':''}">${c.cod}${r?.cat==="prim"?" ★":r?.cat==="colab"?" ◆":""}</span>`;
+    }).join("");
+
+    const details=cnaes.filter(c=>clsAneor(c.cod)).map(c=>{
+      const r=clsAneor(c.cod);
+      return`<div class="ditem ${r.cat}"><div class="dcod">${c.cod}</div><div><div class="ddesc">${r.label}${c.principal?" (principal)":""}</div><div class="dctx">${r.ctx}</div></div></div>`;
+    }).join("");
+
+    document.getElementById("resultadoAneor").innerHTML=`<div class="rcard">
+      ${buildTop(raw,d)}
+      <div class="rbody">
+        <div class="slabel">CNAEs cadastrados</div>
+        <div class="cnae-grid">${chips||'<span style="color:var(--text3);font-size:13px">Nenhum CNAE encontrado</span>'}</div>
+        <hr class="divider">
+        ${buildVerdict(tipo,vtag,vtitle,vbody,valert)}
+        ${details?`<div class="slabel" style="margin-top:1rem">CNAEs identificados</div><div class="dlist">${details}</div>`:""}
+      </div>
+    </div>`;
   }catch(e){showError("resultadoAneor",e.message||"Erro ao consultar.");}
   finally{btn.disabled=false;}
 }
 
-// ══════════════════════════════
-// ACOMAC
-// ══════════════════════════════
+// ══════════════════════════════════════════════════════
+// ACOMAC — Bahia inteira (só UF=BA, sem lista de municípios)
+// ══════════════════════════════════════════════════════
 const ACOMAC_CNAES={
   "47440":{label:"Comércio varejista de materiais de construção em geral",ctx:"Lojas de material de construção — atividade principal ACOMAC."},
   "47441":{label:"Comércio varejista de ferragens e ferramentas",ctx:"Ferragens e ferramentas para construção civil."},
@@ -453,7 +502,7 @@ const ACOMAC_CNAES={
   "47415":{label:"Comércio varejista de tintas e materiais para pintura",ctx:"Tintas, vernizes, solventes e materiais para pintura."},
   "47423":{label:"Comércio varejista de vidros",ctx:"Vidros e espelhos."},
   "47431":{label:"Comércio varejista de vidros, espelhos, vitrais e molduras",ctx:"Vidraçarias e comércio de molduras."},
-  "46796":{label:"Comércio atacadista de tintas, vernizes e similares",ctx:"Distribuição atacadista de tintas."},
+  "46796":{label:"Comércio atacadista de tintas, vernizes e similares",ctx:"Distribuição atacadista de tintas para construção."},
   "46797":{label:"Comércio atacadista de vidros planos e moldados",ctx:"Distribuição atacadista de vidros."},
   "46798":{label:"Comércio atacadista de mármores e granitos",ctx:"Pedras ornamentais e revestimentos."},
   "46729":{label:"Comércio atacadista de ferragens e ferramentas",ctx:"Distribuição de ferragens, parafusos e ferramentas."},
@@ -461,7 +510,6 @@ const ACOMAC_CNAES={
   "46748":{label:"Comércio atacadista de cimento",ctx:"Distribuição de cimento para construção civil."},
   "46711":{label:"Comércio atacadista de produtos siderúrgicos para construção",ctx:"Vergalhões, vigas, perfis metálicos e aço."},
 };
-const MUNICIPIOS_BA=new Set(["acajutiba","adustina","agua fria","alagoinhas","amargosa","amelia rodrigues","america dourada","andarai","anguera","antas","antonio cardoso","apora","aracas","araci","aramari","aratuipe","baixa grande","banzae","barra do mendes","barro alto","barrocas","biritinga","boa vista do tupim","boninal","bonito","brejoes","cabeceiras do paraguacu","cachoeira","cafarnaum","camacari","canarana","candeal","candeias","capela do alto alegre","cardeal da silva","castro alves","catu","central","cicero dantas","cipo","conceicao da feira","conceicao do almeida","conceicao do coite","conceicao do jacuipe","conde","coracao de maria","coronel joao sa","cravolandia","crisopolis","cruz das almas","dias davila","dom macedo costa","elisio medrado","entre rios","esplanada","fatima","feira de santana","gaviao","gentio do ouro","governador mangabeira","heliopolis","iacu","ibipeba","ibiquera","ibibita","ichu","inhambupe","ipecaeta","ipira","irajuba","iraquara","irara","irece","itaberaba","itaete","itaguacu da bahia","itanagra","itaparica","itapicuru","itatim","jaguaripe","jandaira","jiquirica","joao dourado","jussara","laje","lamarao","lapao","lauro de freitas","lencois","macajuba","madre de deus","mairi","maragogipe","marcionilio souza","mata de sao joao","milagres","mucuge","mulungu do morro","mundo novo","muniz ferreira","muritiba","nazare","nordestina","nova fatima","nova itarana","nova redencao","nova soure","novo horizonte","novo triunfo","olindina","ouricangas","palmeiras","paripiranga","pe de serra","pedrao","pintadas","piritiba","planaltino","pojuca","presidente dutra","queimadas","quijingue","rafael jambeiro","retirolandia","riachao do jacuipe","ribeira do amparo","ribeira do pombal","rio real","ruy barbosa","salinas da margarida","salvador","santa barbara","santa ines","santaluz","santa teresinha","santanopolis","santo amaro","santo antonio de jesus","santo estevao","sao domingos","sao felipe","sao felix","sao francisco do conde","sao gabriel","sao goncalo dos campos","sao miguel das matas","sao sebastiao do passe","sapeacu","satio do quinto","saubara","seabra","serra preta","serrinha","simoes filho","sitio do quinto","souto soares","tanquinho","tapiramuta","teodoro sampaio","teofilandia","terra nova","tucano","ubaira","uibai","utinga","valente","varzea da roca","varzedo","vera cruz","wagner"]);
 function clsAcomac(cod){const n=normCod(cod);if(ACOMAC_CNAES[n])return ACOMAC_CNAES[n];const f=Object.entries(ACOMAC_CNAES).find(([k])=>k.startsWith(n.slice(0,4)));return f?f[1]:null;}
 
 async function consultarAcomac(){
@@ -477,26 +525,38 @@ async function consultarAcomac(){
     if(d.cnae_fiscal)cnaes.push({cod:String(d.cnae_fiscal),desc:d.cnae_fiscal_descricao||"",principal:true});
     (d.cnaes_secundarios||[]).forEach(c=>cnaes.push({cod:String(c.codigo),desc:c.descricao||"",principal:false}));
     const ativa=isAtiva(d.descricao_situacao_cadastral);
-    const munNorm=normMun(d.municipio);const uf=(d.uf||"").toUpperCase();
+    const uf=(d.uf||"").toUpperCase();
     const match=cnaes.filter(c=>clsAcomac(c.cod));
-    const temCnae=match.length>0;const temMun=MUNICIPIOS_BA.has(munNorm)&&uf==="BA";
-    const perfil=ativa&&temCnae&&temMun;const tipo=perfil?"yes":"no";
+    const temCnae=match.length>0;
+    const temBA=uf==="BA"; // Bahia inteira
+    const perfil=ativa&&temCnae&&temBA;const tipo=perfil?"yes":"no";
     const criterios=[
       {ok:ativa,label:"Situação cadastral",text:ativa?"Empresa ativa na Receita Federal":"Situação irregular — não elegível"},
       {ok:temCnae,label:"CNAE de material de construção",text:temCnae?`${match[0].cod} — ${clsAcomac(match[0].cod)?.label}`:"Nenhum CNAE de material de construção identificado"},
-      {ok:temMun,label:"Município — Regional Salvador/BA",text:temMun?`${d.municipio}/BA está na área de atuação da ACOMAC`:`${d.municipio||"Município não identificado"}${uf?"/"+uf:""} fora da regional de Salvador`},
+      {ok:temBA,label:"Estado — Bahia",text:temBA?`${d.municipio||""}/${uf} está dentro da área de atuação da ACOMAC Bahia`:`${d.municipio||"Município não identificado"}${uf?"/"+uf:""} — ACOMAC Bahia atua exclusivamente no estado da BA`},
     ];
-    let vbody=perfil?`CNAE ${match[0].cod} — ${clsAcomac(match[0].cod)?.label}. Empresa ativa em ${d.municipio}/BA. ✔ Perfil completo ACOMAC Salvador.`:`Não atende: ${[!ativa&&"situação irregular",!temCnae&&"CNAE fora do escopo",!temMun&&"município fora da regional"].filter(Boolean).join("; ")}.`;
+    const vbody=perfil?`CNAE ${match[0].cod} — ${clsAcomac(match[0].cod)?.label}. Empresa ativa em ${d.municipio||""}/${uf}. ✔ Perfil completo ACOMAC Bahia.`:`Não atende: ${[!ativa&&"situação irregular",!temCnae&&"CNAE fora do escopo",!temBA&&`estado ${uf} fora da BA`].filter(Boolean).join("; ")}.`;
     const chips=cnaes.map(c=>{const r=clsAcomac(c.cod);return`<span class="chip ${r?"prim":""}" title="${c.desc}">${c.cod}${r?" ★":""}</span>`;}).join("");
     const details=match.map(c=>{const r=clsAcomac(c.cod);return`<div class="ditem prim"><div class="dcod">${c.cod}</div><div><div class="ddesc">${r.label}${c.principal?" (principal)":""}</div><div class="dctx">${r.ctx}</div></div></div>`;}).join("");
-    document.getElementById("resultadoAcomac").innerHTML=`<div class="rcard">${buildTop(raw,d)}<div class="rbody"><div class="slabel">CNAEs cadastrados</div><div class="cnae-grid">${chips||'<span style="color:var(--text3);font-size:13px">Nenhum CNAE</span>'}</div><hr class="divider"><div class="slabel">Verificação de critérios</div><div class="clist">${buildCriteria(criterios)}</div>${buildVerdict(tipo,tipo==="yes"?"Perfil completo":"Sem perfil",tipo==="yes"?"Elegível — ACOMAC Salvador":"Não elegível — ACOMAC Salvador",vbody)}${details?`<div class="slabel" style="margin-top:1rem">CNAEs identificados</div><div class="dlist">${details}</div>`:""}</div></div>`;
+    document.getElementById("resultadoAcomac").innerHTML=`<div class="rcard">
+      ${buildTop(raw,d)}
+      <div class="rbody">
+        <div class="slabel">CNAEs cadastrados</div>
+        <div class="cnae-grid">${chips||'<span style="color:var(--text3);font-size:13px">Nenhum CNAE</span>'}</div>
+        <hr class="divider">
+        <div class="slabel">Verificação de critérios</div>
+        <div class="clist">${buildCriteria(criterios)}</div>
+        ${buildVerdict(tipo,tipo==="yes"?"Perfil completo":"Sem perfil",tipo==="yes"?"Elegível — ACOMAC Bahia":"Não elegível — ACOMAC Bahia",vbody)}
+        ${details?`<div class="slabel" style="margin-top:1rem">CNAEs identificados</div><div class="dlist">${details}</div>`:""}
+      </div>
+    </div>`;
   }catch(e){showError("resultadoAcomac",e.message||"Erro ao consultar.");}
   finally{btn.disabled=false;}
 }
 
-// ══════════════════════════════
+// ══════════════════════════════════════════════════════
 // ACIA e ACP
-// ══════════════════════════════
+// ══════════════════════════════════════════════════════
 const UF_CONFIG={
   acia:{ufs:["SP","MG","RJ"],nome:"ACIA",inputId:"cnpjAcia",btnId:"btnAcia",resultId:"resultadoAcia"},
   acp:{ufs:["PE","AL","PB","BA","PI","CE"],nome:"ACP",inputId:"cnpjAcp",btnId:"btnAcp",resultId:"resultadoAcp"},
@@ -516,19 +576,26 @@ async function consultarUF(assoc){
     const perfil=ativa&&temUF;const tipo=perfil?"yes":"no";
     const criterios=[
       {ok:ativa,label:"Situação cadastral",text:ativa?"Empresa ativa na Receita Federal":"Situação irregular — não elegível"},
-      {ok:temUF,label:`Estado — ${cfg.nome}`,text:temUF?`${d.municipio||""}${uf?"/"+uf:""} está na área de atuação da ${cfg.nome}`:`${uf||"UF não identificada"} fora da área de atuação (elegíveis: ${cfg.ufs.join(", ")})`},
+      {ok:temUF,label:`Estado — ${cfg.nome}`,text:temUF?`${d.municipio||""}${uf?"/"+uf:""} está na área de atuação da ${cfg.nome}`:`${uf||"UF não identificada"} fora da área (elegíveis: ${cfg.ufs.join(", ")})`},
     ];
     const vbody=perfil?`Empresa ativa em ${d.municipio||""}${uf?"/"+uf:""}. ✔ Elegível para ${cfg.nome}.`:`Não elegível: ${[!ativa&&"situação irregular",!temUF&&`estado ${uf} fora da área`].filter(Boolean).join("; ")}.`;
-    document.getElementById(cfg.resultId).innerHTML=`<div class="rcard">${buildTop(raw,d)}<div class="rbody"><div class="slabel">Verificação de critérios</div><div class="clist">${buildCriteria(criterios)}</div>${buildVerdict(tipo,tipo==="yes"?"Elegível":"Sem perfil",tipo==="yes"?`Elegível — ${cfg.nome}`:`Não elegível — ${cfg.nome}`,vbody)}</div></div>`;
+    document.getElementById(cfg.resultId).innerHTML=`<div class="rcard">
+      ${buildTop(raw,d)}
+      <div class="rbody">
+        <div class="slabel">Verificação de critérios</div>
+        <div class="clist">${buildCriteria(criterios)}</div>
+        ${buildVerdict(tipo,tipo==="yes"?"Elegível":"Sem perfil",tipo==="yes"?`Elegível — ${cfg.nome}`:`Não elegível — ${cfg.nome}`,vbody)}
+      </div>
+    </div>`;
   }catch(e){showError(cfg.resultId,e.message||"Erro ao consultar.");}
   finally{btn.disabled=false;}
 }
 
-// ══════════════════════════════
+// ══════════════════════════════════════════════════════
 // CIESP
-// ══════════════════════════════
+// ══════════════════════════════════════════════════════
 function isIndustria(cod){const n=parseInt(String(cod).replace(/\D/g,"").slice(0,4));return n>=1011&&n<=3329;}
-function labelIndustria(cod){const n=parseInt(String(cod).replace(/\D/g,"").slice(0,2));const map={10:"Alimentos",11:"Bebidas",12:"Fumo",13:"Têxteis",14:"Vestuário",15:"Calçados e couro",16:"Madeira",17:"Celulose e papel",18:"Impressão",19:"Petróleo e coque",20:"Química",21:"Farmacêutica",22:"Borracha e plástico",23:"Minerais não-metálicos",24:"Metalurgia",25:"Produtos de metal",26:"Eletrônicos e informática",27:"Máquinas elétricas",28:"Máquinas e equipamentos",29:"Veículos automotores",30:"Outros transportes",31:"Móveis",32:"Produtos diversos",33:"Manutenção industrial"};return map[n]||"Atividade industrial";}
+function labelIndustria(cod){const n=parseInt(String(cod).replace(/\D/g,"").slice(0,2));const map={10:"Alimentos",11:"Bebidas",12:"Fumo",13:"Têxteis",14:"Vestuário",15:"Calçados e couro",16:"Madeira",17:"Celulose e papel",18:"Impressão",19:"Petróleo e coque",20:"Química",21:"Farmacêutica",22:"Borracha e plástico",23:"Minerais não-metálicos",24:"Metalurgia",25:"Produtos de metal",26:"Eletrônicos",27:"Máquinas elétricas",28:"Máquinas e equipamentos",29:"Veículos automotores",30:"Outros transportes",31:"Móveis",32:"Produtos diversos",33:"Manutenção industrial"};return map[n]||"Atividade industrial";}
 
 async function consultarCiesp(){
   const raw=document.getElementById("cnpjCiesp").value.replace(/\D/g,"");
@@ -551,17 +618,28 @@ async function consultarCiesp(){
       {ok:emSP,label:"Estado — São Paulo",text:emSP?`${d.municipio||""}/SP dentro da área CIESP`:`${uf||"UF não identificada"} — CIESP atua exclusivamente em SP`},
       {ok:temInd,label:"CNAE industrial (divisões 10–33)",text:temInd?`${indMatch[0].cod} — ${labelIndustria(indMatch[0].cod)}`:"Nenhum CNAE industrial identificado"},
     ];
-    const vbody=perfil?`CNAE ${indMatch[0].cod} — ${labelIndustria(indMatch[0].cod)}. Empresa ativa em ${d.municipio||""}/SP. ✔ Perfil industrial confirmado para CIESP.`:`Não elegível: ${[!ativa&&"situação irregular",!emSP&&`estado ${uf} fora de SP`,!temInd&&"sem CNAE industrial"].filter(Boolean).join("; ")}.`;
+    const vbody=perfil?`CNAE ${indMatch[0].cod} — ${labelIndustria(indMatch[0].cod)}. Empresa ativa em ${d.municipio||""}/SP. ✔ Perfil industrial confirmado.`:`Não elegível: ${[!ativa&&"situação irregular",!emSP&&`estado ${uf} fora de SP`,!temInd&&"sem CNAE industrial"].filter(Boolean).join("; ")}.`;
     const chips=cnaes.map(c=>`<span class="chip ${isIndustria(c.cod)?"prim":""}" title="${c.desc}">${c.cod}${isIndustria(c.cod)?" ★":""}</span>`).join("");
     const details=indMatch.map(c=>`<div class="ditem prim"><div class="dcod">${c.cod}</div><div><div class="ddesc">${c.desc||labelIndustria(c.cod)}${c.principal?" (principal)":""}</div><div class="dctx">${labelIndustria(c.cod)} — divisão industrial CIESP</div></div></div>`).join("");
-    document.getElementById("resultadoCiesp").innerHTML=`<div class="rcard">${buildTop(raw,d)}<div class="rbody"><div class="slabel">CNAEs cadastrados</div><div class="cnae-grid">${chips||'<span style="color:var(--text3);font-size:13px">Nenhum CNAE</span>'}</div><hr class="divider"><div class="slabel">Verificação de critérios</div><div class="clist">${buildCriteria(criterios)}</div>${buildVerdict(tipo,tipo==="yes"?"Perfil confirmado":"Sem perfil",tipo==="yes"?"Elegível — CIESP":"Não elegível — CIESP",vbody)}${details?`<div class="slabel" style="margin-top:1rem">CNAEs industriais identificados</div><div class="dlist">${details}</div>`:""}</div></div>`;
+    document.getElementById("resultadoCiesp").innerHTML=`<div class="rcard">
+      ${buildTop(raw,d)}
+      <div class="rbody">
+        <div class="slabel">CNAEs cadastrados</div>
+        <div class="cnae-grid">${chips||'<span style="color:var(--text3);font-size:13px">Nenhum CNAE</span>'}</div>
+        <hr class="divider">
+        <div class="slabel">Verificação de critérios</div>
+        <div class="clist">${buildCriteria(criterios)}</div>
+        ${buildVerdict(tipo,tipo==="yes"?"Perfil confirmado":"Sem perfil",tipo==="yes"?"Elegível — CIESP":"Não elegível — CIESP",vbody)}
+        ${details?`<div class="slabel" style="margin-top:1rem">CNAEs industriais identificados</div><div class="dlist">${details}</div>`:""}
+      </div>
+    </div>`;
   }catch(e){showError("resultadoCiesp",e.message||"Erro ao consultar.");}
   finally{btn.disabled=false;}
 }
 
-// ══════════════════════════════
+// ══════════════════════════════════════════════════════
 // CONSULTA GERAL
-// ══════════════════════════════
+// ══════════════════════════════════════════════════════
 async function consultarGeral(){
   const raw=document.getElementById("cnpjGeral").value.replace(/\D/g,"");
   if(raw.length!==14){showError("resultadoGeral","CNPJ inválido.");return;}
@@ -576,42 +654,66 @@ async function consultarGeral(){
     (d.cnaes_secundarios||[]).forEach(c=>cnaes.push({cod:String(c.codigo),desc:c.descricao||"",principal:false}));
     const ativa=isAtiva(d.descricao_situacao_cadastral);
     const uf=(d.uf||"").toUpperCase();
-    const munNorm=normMun(d.municipio);
-    const temAneor=cnaes.some(c=>clsAneor(c.cod)!==null);
-    const temAcomac=cnaes.some(c=>clsAcomac(c.cod)!==null)&&MUNICIPIOS_BA.has(munNorm)&&uf==="BA";
+
+    const temAneorPrim=cnaes.some(c=>clsAneor(c.cod)?.cat==="prim");
+    const temAneorColab=cnaes.some(c=>clsAneor(c.cod)?.cat==="colab");
+    const temAcomac=cnaes.some(c=>clsAcomac(c.cod)!==null)&&uf==="BA";
     const temAcia=["SP","MG","RJ"].includes(uf);
     const temAcp=["PE","AL","PB","BA","PI","CE"].includes(uf);
     const temCiesp=uf==="SP"&&cnaes.some(c=>isIndustria(c.cod));
+
     const assocs=[
-      {nome:"ANEOR",  sub:"Obras Rodoviárias",      ok:ativa&&temAneor,  motivo:!ativa?"Situação irregular":!temAneor?"Sem CNAE rodoviário":""},
-      {nome:"ACOMAC", sub:"Material de Construção",  ok:ativa&&temAcomac, motivo:!ativa?"Situação irregular":!temAcomac?"CNAE ou município BA não atendido":""},
-      {nome:"ACIA",   sub:"SP · MG · RJ",            ok:ativa&&temAcia,   motivo:!ativa?"Situação irregular":`Estado ${uf} fora da área ACIA`},
-      {nome:"ACP",    sub:"Nordeste",                 ok:ativa&&temAcp,    motivo:!ativa?"Situação irregular":`Estado ${uf} fora da área ACP`},
-      {nome:"CIESP",  sub:"Indústria SP",             ok:ativa&&temCiesp,  motivo:!ativa?"Situação irregular":uf!=="SP"?`Empresa em ${uf}, não SP`:"Sem CNAE industrial"},
+      {nome:"ANEOR",sub:"Obras Rodoviárias",
+        status:ativa&&temAneorPrim?"yes":ativa&&temAneorColab?"partial":"no",
+        desc:ativa&&temAneorPrim?"Construtora rodoviária — oportunidade direta":ativa&&temAneorColab?"Perfil colaborador — validar com time de Novos Negócios":"Sem perfil rodoviário identificado"},
+      {nome:"ACOMAC",sub:"Material de Construção / BA",
+        status:ativa&&temAcomac?"yes":"no",
+        desc:ativa&&temAcomac?"Material de construção na Bahia — elegível":"CNAE ou estado BA não atendido"},
+      {nome:"ACIA",sub:"SP · MG · RJ",
+        status:ativa&&temAcia?"yes":"no",
+        desc:ativa&&temAcia?`Empresa ativa em ${uf} — área ACIA`:`${uf} fora da área ACIA (SP/MG/RJ)`},
+      {nome:"ACP",sub:"Nordeste",
+        status:ativa&&temAcp?"yes":"no",
+        desc:ativa&&temAcp?`Empresa ativa em ${uf} — área ACP`:`${uf} fora da área ACP`},
+      {nome:"CIESP",sub:"Indústria SP",
+        status:ativa&&temCiesp?"yes":"no",
+        desc:ativa&&temCiesp?"Indústria ativa em SP — elegível":uf!=="SP"?`Empresa em ${uf}, não SP`:"Sem CNAE industrial"},
     ];
-    const temAlgum=assocs.some(a=>a.ok);
-    const elegiveis=assocs.filter(a=>a.ok).map(a=>a.nome);
-    const cap=d.capital_social?"R$ "+Number(d.capital_social).toLocaleString("pt-BR"):null;
+
+    const elegiveis=assocs.filter(a=>a.status==="yes").map(a=>a.nome);
+    const parciais=assocs.filter(a=>a.status==="partial").map(a=>a.nome);
+    const temAlgum=elegiveis.length>0||parciais.length>0;
+
+    let resumoTipo=temAlgum?"yes":"no";
+    let resumoBody=elegiveis.length>0
+      ?`<strong>Elegível para:</strong> ${elegiveis.join(", ")}${parciais.length>0?`<br><strong>Perfil parcial (validar):</strong> ${parciais.join(", ")}`:""}`
+      :parciais.length>0
+      ?`<strong>Perfil parcial identificado (validar com time):</strong> ${parciais.join(", ")}`
+      :`Empresa não elegível para nenhuma das associações verificadas.`;
+    if(parciais.length>0)resumoTipo=elegiveis.length>0?"yes":"partial";
+
     const geralCards=assocs.map(a=>`
-      <div class="gcard ${a.ok?"yes":"no"}">
-        <div class="gcard-icon">${a.ok?"✅":"○"}</div>
-        <div>
-          <div class="gcard-name">${a.nome} <span style="font-size:11px;font-weight:400;opacity:.7">${a.sub}</span></div>
-          <div class="gcard-desc">${a.ok?"Elegível":"Não elegível — "+a.motivo}</div>
+      <div class="gcard ${a.status}">
+        <div class="gcard-icon">${a.status==="yes"?"✅":a.status==="partial"?"⚠️":"○"}</div>
+        <div class="gcard-body">
+          <div class="gcard-name">${a.nome} <span style="font-size:11px;font-weight:400;opacity:.65">${a.sub}</span></div>
+          <div class="gcard-desc">${a.desc}</div>
         </div>
       </div>`).join("");
-    const resumoVerdict=temAlgum
-      ?`<strong>Elegível para ${elegiveis.length} associaç${elegiveis.length===1?"ão":"ões"}:</strong> ${elegiveis.join(", ")}`
-      :`Empresa não elegível para nenhuma das ${assocs.length} associações verificadas.`;
-    document.getElementById("resultadoGeral").innerHTML=`
-      <div class="rcard">
-        ${buildTop(raw,d)}
-        <div class="rbody">
-          ${buildVerdict(temAlgum?"yes":"no",temAlgum?"Associações identificadas":"Sem associações",temAlgum?"Resultado da consulta geral":"Nenhum perfil encontrado",resumoVerdict)}
-          <div class="slabel">Resultado por associação</div>
-          <div class="geral-grid">${geralCards}</div>
-        </div>
-      </div>`;
+
+    document.getElementById("resultadoGeral").innerHTML=`<div class="rcard">
+      ${buildTop(raw,d)}
+      <div class="rbody">
+        ${buildVerdict(resumoTipo,
+          elegiveis.length>0?"Associações identificadas":parciais.length>0?"Perfil parcial identificado":"Sem associações",
+          elegiveis.length>0?"Resultado da consulta geral":parciais.length>0?"Requer validação pelo time":"Nenhum perfil encontrado",
+          resumoBody,
+          parciais.length>0?"Associações com perfil parcial requerem validação do time de Novos Negócios antes de prosseguir.":null
+        )}
+        <div class="slabel">Resultado por associação</div>
+        <div class="geral-grid">${geralCards}</div>
+      </div>
+    </div>`;
   }catch(e){showError("resultadoGeral",e.message||"Erro ao consultar.");}
   finally{btn.disabled=false;}
 }
